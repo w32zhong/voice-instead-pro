@@ -1,0 +1,25 @@
+<html>
+<body>
+<h3>this is just a test!</h3>
+<script type="text/javascript" charset="utf-8">
+document.body.onload = function () {
+	var a = addAudioElement();
+	a.src = 'http://lezotre.free.fr/Mp3/disco.mp3';
+	a.play();
+}
+
+function addAudioElement(audioSrc) {
+	var audioElement = document.createElement('audio');
+	//audioElement.setAttribute("controls", "");
+	//audioElement.setAttribute("autoplay", "");
+	//audioElement.setAttribute("loop", "");
+	//audioElement.setAttribute("muted", "");
+	audioElement.setAttribute("preload", "auto");
+	audioElement.src= '';
+	document.body.appendChild(audioElement);
+
+	return audioElement;
+}
+</script>
+</body>
+</html>
