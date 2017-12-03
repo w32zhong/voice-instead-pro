@@ -1,19 +1,13 @@
-function tts_api_url(api_name, text)
-{
-	url_voicerss = 'http://www.voicerss.org/controls/speech.ashx?';
-	url = '';
-	switch (api_name) {
-	case 'voicerss':
-		url = url_voicerss;
-		url += 'hl=en-us&';
-		url += 'src=' + encodeURIComponent(text);
-		break;
-	default:
-	}
+chrome.runtime.onMessage.addListener(
+  function(arg, sender, sendResponse) {
+//	  audioElement.load;
+//	  audioElement.play();
+  }
+);
 
-	return url;
-}
-
+/*
+ * Create the two circular audio buffers.
+ */
 var a1 = newAudioElement();
 var a2 = newAudioElement();
 
@@ -31,15 +25,27 @@ function newAudioElement() {
 	return audioElement;
 }
 
-// chrome.runtime.onMessage.addListener(
-//   function(arg, sender, sendResponse) {
-// //	  audioElement.load;
-// //	  audioElement.play();
-//   }
-// );
+/*
+ * TTS APIs' URL generator
+ */
+function tts_api_url(api_name, text)
+{
+	url_voicerss = 'http://www.voicerss.org/controls/speech.ashx?';
+	url = '';
+	switch (api_name) {
+	case 'voicerss':
+		url = url_voicerss;
+		url += 'hl=en-us&';
+		url += 'src=' + encodeURIComponent(text);
+		break;
+	default:
+	}
+
+	return url;
+}
 
 /*
- * audio GET request
+ * audio high-level methods
  */
 function audio_load(audio, url, callbk)
 {
@@ -63,12 +69,18 @@ function audio_play(audio, onTimeUpdate, onEnd)
 	audio.play();
 	var last_cur = audio.currentTime;
 	var IntId = setInterval(function() {
-		if (audio.currentTime != last_cur) {
-			onTimeUpdate(audio.currentTime, audio.duration);
-			last_cur = audio.currentTime;
-		} else if (audio.ended) {
+		var stop_procedure = function () {
 			clearInterval(IntId);
 			onEnd();
+		}
+		if (audio.currentTime != last_cur) {
+			last_cur = audio.currentTime;
+			if (onTimeUpdate(audio.currentTime, audio.duration)) {
+				/* callback function indicates us to stop */
+				stop_procedure();
+			}
+		} else if (audio.ended) {
+			stop_procedure();
 		}
 	}, 100);
 }
@@ -76,29 +88,59 @@ function audio_play(audio, onTimeUpdate, onEnd)
 /*
  * Text to Speech
  */
+function recur_play(audio_arr, trunks, i) {
+	/* go play the current trunk */
+	if (0 <= i && i < trunks.length) {
+		console.log(trunks[i]);
+		if (audio_arr[i % 2] == null) {
+			console.log('Trunk[' + i + '] is empty, abort.');
+			return;
+		}
+		console.log('Trunk[' + i + '] plays.');
+		audio_play(audio_arr[i % 2],
+			function onTimeUpdate(cur, dur) {
+				// console.log(cur + '/' + dur);
+				var left_time = dur - cur;
+				if (left_time < 1.2) {
+					/* start to play the next trunk */
+					recur_play(audio_arr, trunks, i + 1);
+					return true; /* stop this trunk */
+				}
+				return false;
+			},
+			function onEnd() {
+				console.log('Trunk[' + i + '] ends.');
+		});
+	}
+
+	/* at the same time prepare and load the next trunk */
+	if (i + 1 < trunks.length) {
+		url = tts_api_url('voicerss', trunks[i + 1]);
+		audio_load(audio_arr[(i + 1) % 2], url, function (c) {
+			if (c != 200) {
+				/* download failed */
+				console.log('Trunk[' + (i + 1) + '] failed to load.');
+				audio_arr[(i + 1) % 2] = null;
+				return;
+			}
+			console.log('Trunk[' + (i + 1) + '] loaded.');
+			if (i < 0) {
+				/* initial play */
+				recur_play(audio_arr, trunks, 0);
+			}
+		});
+	} else if (i < trunks.length) {
+		console.log('Trunk[' + i + '] is the final trunk.');
+	}
+}
+
 function text2speech(text) {
 	/* ignore some char that causes API to return ERR 500 */
 	text = text.replace(/</g, ' ');
 	text = text.replace(/>/g, ' ');
 
 	trunks = text2trunks(text);
-	audio_arr = [a1, a2];
-	console.log(trunks);
-
-	url = tts_api_url('voicerss', trunks[0]);
-	audio_load(audio_arr[0], url, function (xhr_status) {
-		audio_play(audio_arr[0],
-		function onTimeUpdate(cur, dur) {
-			console.log(cur + '/' + dur);
-			var left_time = dur - cur;
-			if (left_time < 1.2) {
-				console.log('Start the next buffer!');
-			}
-		},
-		function onEnd(cur, dur) {
-			console.log('Oh end.');
-		});
-	});
+	recur_play([a1, a2], trunks, -1);
 }
 
 /*
@@ -183,12 +225,11 @@ function first_trunk(text)
 
 function text2trunks(text)
 {
-	var i = 0, trunks = new Object();
+	var i = 0, trunks = new Array();
 	while (text != 0) {
 		var next = first_trunk(text);
 		var trunk = text.substr(0, next);
 		text = text.substr(next);
-		console.log('trunk: ' + trunk);
 		trunks[i++] = trunk;
 	}
 	return trunks;
