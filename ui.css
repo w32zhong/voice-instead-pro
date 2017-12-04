@@ -1,0 +1,25 @@
+#audio_ctrl {
+	margin: auto;
+	width: 50%;
+}
+
+div.ac_btn {
+	display: inline;
+	margin: 0 5px 0 5px;
+}
+
+div.ac_btn:hover {
+	cursor: pointer;
+}
+
+div.ac_btn:active {
+	background-color: gray;
+}
+
+div.ac_btn img {
+	display: inline;
+	max-width: 100%;
+	height: auto;
+}
+/*
+*/

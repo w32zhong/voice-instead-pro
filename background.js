@@ -1,9 +1,18 @@
 chrome.runtime.onMessage.addListener(
-  function(arg, sender, sendResponse) {
-//	  audioElement.load;
-//	  audioElement.play();
-  }
+	function(arg, sender, sendResponse) {
+		console.log(arg);
+		console.log(sender);
+	}
 );
+
+function sendMsgToTab(msg) {
+	chrome.tabs.query(
+		{active: true, currentWindow: true },
+		function(tabs) {
+			chrome.tabs.sendMessage(tabs[0].id, msg);
+		}
+	);
+}
 
 /*
  * Create the two circular audio buffers.
@@ -97,7 +106,8 @@ function recur_play(audio_arr, trunks, i) {
 			return;
 		}
 		console.log('Trunk[' + i + '] plays.');
-		audio_play(audio_arr[i % 2],
+		audio_play(
+			audio_arr[i % 2],
 			function onTimeUpdate(cur, dur) {
 				// console.log(cur + '/' + dur);
 				var left_time = dur - cur;
@@ -110,7 +120,11 @@ function recur_play(audio_arr, trunks, i) {
 			},
 			function onEnd() {
 				console.log('Trunk[' + i + '] ends.');
-		});
+				if (i + 1 == trunks.length) {
+					sendMsgToTab({"event": "ended", "args": {}});
+				}
+			}
+		);
 	}
 
 	/* at the same time prepare and load the next trunk */
@@ -126,6 +140,7 @@ function recur_play(audio_arr, trunks, i) {
 			console.log('Trunk[' + (i + 1) + '] loaded.');
 			if (i < 0) {
 				/* initial play */
+				sendMsgToTab({"event": "loaded", "args": {}});
 				recur_play(audio_arr, trunks, 0);
 			}
 		});
@@ -138,6 +153,8 @@ function text2speech(text) {
 	/* ignore some char that causes API to return ERR 500 */
 	text = text.replace(/</g, ' ');
 	text = text.replace(/>/g, ' ');
+
+	sendMsgToTab({"event": "start", "args": {}});
 
 	trunks = text2trunks(text);
 	recur_play([a1, a2], trunks, -1);

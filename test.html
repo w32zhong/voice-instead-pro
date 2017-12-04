@@ -1,25 +1,9 @@
-<html>
+<html><head>
+<link rel="stylesheet" type="text/css" href="./ui.css">
+</head>
 <body>
-<h3>this is just a test!</h3>
-<script type="text/javascript" charset="utf-8">
-document.body.onload = function () {
-	var a = addAudioElement();
-	a.src = 'http://lezotre.free.fr/Mp3/disco.mp3';
-	a.play();
-}
+<div id="audio_ctrl"><div id="btn_play" class="ac_btn"><img src="chrome-extension://kgkiapdchfegdajipncckkndebjjjjln/fa-play.png"></div><div id="btn_pause" class="ac_btn"><img src="chrome-extension://kgkiapdchfegdajipncckkndebjjjjln/fa-pause.png"></div><div id="btn_stop" class="ac_btn"><img src="chrome-extension://kgkiapdchfegdajipncckkndebjjjjln/fa-stop.png"></div></div>
+<script src="./popup.js"></script>
 
-function addAudioElement(audioSrc) {
-	var audioElement = document.createElement('audio');
-	//audioElement.setAttribute("controls", "");
-	//audioElement.setAttribute("autoplay", "");
-	//audioElement.setAttribute("loop", "");
-	//audioElement.setAttribute("muted", "");
-	audioElement.setAttribute("preload", "auto");
-	audioElement.src= '';
-	document.body.appendChild(audioElement);
 
-	return audioElement;
-}
-</script>
-</body>
-</html>
+</body></html>

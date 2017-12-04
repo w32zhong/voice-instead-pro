@@ -1,25 +1,41 @@
 {
+  "name": "Voice Instead",
+  "version": "17.12.4.42",
   "manifest_version": 2,
 
-  "name": "foo",
-  "description": "bar",
-  "version": "0.1",
+  "description": "Yet another TTS (text to speech) extension, with natural voice.",
+
+  "icons": {
+	  "48": "icon48.png",
+	  "128": "icon.png"
+  },
 
   "browser_action": {
-    "default_icon": "icon19.png",
+    "default_icon": {
+      "19": "icon19.png",
+      "38": "icon36.png"
+    },
+    "default_title": "Voice Instead Options",
     "default_popup": "popup.html"
   },
 
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
-    }
-  ],
+  "content_scripts": [{
+	"matches": ["<all_urls>"],
+	"css": ["ui.css"],
+	"all_frames": false,
+	"js": ["jquery.min.js", "content.js"]
+  }],
 
   "background": {
     "scripts": ["background.js"]
   },
+
+  "web_accessible_resources": [
+    "fa-play.png",
+    "fa-pause.png",
+    "fa-stop.png",
+    "loader.gif"
+  ],
 
   "permissions": [
     "tabs",
