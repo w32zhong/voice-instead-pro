@@ -1,7 +1,23 @@
+/*
+ * Message listener and sender API
+ */
 chrome.runtime.onMessage.addListener(
 	function(arg, sender, sendResponse) {
-		console.log(arg);
-		console.log(sender);
+		switch (arg['cmd']) {
+		case 'play':
+			speech_play();
+			break;
+		case 'pause':
+			speech_pause();
+			break;
+		case 'stop':
+			speech_stop();
+			break;
+		default:
+			console.log('ERR: bad msg.');
+		}
+		// console.log(arg);
+		// console.log(sender);
 	}
 );
 
@@ -12,6 +28,36 @@ function sendMsgToTab(msg) {
 			chrome.tabs.sendMessage(tabs[0].id, msg);
 		}
 	);
+}
+
+/*
+ * Speech play control functions.
+ */
+var playing_idx = -1;
+
+function speech_play() {
+	if (playing_idx != -1) {
+		[a1, a2][playing_idx].play();
+	}
+}
+
+function speech_pause() {
+	if (playing_idx != -1) {
+		[a1, a2][playing_idx].pause();
+	}
+}
+
+Audio.prototype.stop = function() {
+	this.pause();
+	this.currentTime = 0;
+};
+
+function speech_stop() {
+	if (playing_idx != -1) {
+		[a1, a2][playing_idx].pause();
+	}
+	a1.stop();
+	a2.stop();
 }
 
 /*
@@ -106,6 +152,7 @@ function recur_play(audio_arr, trunks, i) {
 			return;
 		}
 		console.log('Trunk[' + i + '] plays.');
+		playing_idx = i % 2;
 		audio_play(
 			audio_arr[i % 2],
 			function onTimeUpdate(cur, dur) {
@@ -122,6 +169,7 @@ function recur_play(audio_arr, trunks, i) {
 				console.log('Trunk[' + i + '] ends.');
 				if (i + 1 == trunks.length) {
 					sendMsgToTab({"event": "ended", "args": {}});
+					playing_idx = -1;
 				}
 			}
 		);

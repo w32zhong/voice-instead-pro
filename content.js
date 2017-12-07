@@ -81,6 +81,13 @@ function prepare_ctrl_panel()
 {
 	add_only_one('jquery_jplayer_vi_panel', audio_control_dom());
 
+	$("#btn_play").click(function(){ chrome.runtime.sendMessage({'cmd': 'play'}); });
+	$("#btn_pause").click(function(){ chrome.runtime.sendMessage({'cmd': 'pause'}); });
+	$("#btn_stop").click(function(){
+		chrome.runtime.sendMessage({'cmd': 'stop'});
+		remove_ctrl_panel();
+	});
+
 	$("#jquery_jplayer_vi_panel").css({
 		"background-color": "yellow",
 		"font-size": "11px",
