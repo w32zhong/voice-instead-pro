@@ -56,7 +56,7 @@ function add_only_one(id_name, content)
 function audio_control_dom()
 {
 	var dom = '';
-	var name = ['play', 'pause', 'stop'];
+	var name = ['pause', 'stop'];
 	for (var i = 0; i < name.length; i++) {
 		url = chrome.extension.getURL('fa-' + name[i] + '.png');
 		id = 'btn_' + name[i];
@@ -77,13 +77,20 @@ function loading_dom()
 }
 
 var g_panel_height = "15 px";
+var g_playpause = 1;
 function prepare_ctrl_panel()
 {
 	add_only_one('jquery_jplayer_vi_panel', audio_control_dom());
 
-	$("#btn_play").click(function(){ chrome.runtime.sendMessage({'cmd': 'play'}); });
-	$("#btn_pause").click(function(){ chrome.runtime.sendMessage({'cmd': 'pause'}); });
-	$("#btn_stop").click(function(){
+	$("#btn_pause").click(function() {
+		var name = ['play', 'pause'];
+		chrome.runtime.sendMessage({'cmd': name[g_playpause]});
+		g_playpause = (g_playpause + 1) % 2;
+		url = chrome.extension.getURL('fa-' + name[g_playpause] + '.png');
+		$("#btn_pause").html('<img src="' + url + '"/>');
+	});
+
+	$("#btn_stop").click(function() {
 		chrome.runtime.sendMessage({'cmd': 'stop'});
 		remove_ctrl_panel();
 	});
