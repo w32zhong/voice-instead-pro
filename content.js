@@ -78,6 +78,7 @@ function loading_dom()
 
 var g_panel_height = "15 px";
 var g_playpause = 1;
+var g_z_index = 2147483647;
 function prepare_ctrl_panel()
 {
 	add_only_one('jquery_jplayer_vi_panel', audio_control_dom());
@@ -106,7 +107,7 @@ function prepare_ctrl_panel()
 		"border-radius": "6px",
 		"margin": "0 0 0 0",
 		"height": g_panel_height,
-		"z-index": "2147483640 !important",
+		"z-index": g_z_index,
 		"opacity": "0.99"
 	}).bottom_center().hide();
 
@@ -122,8 +123,10 @@ function sched_show_ctrl_panel()
 
 function show_ctrl_panel()
 {
-	if (g_show_panel_lock == 0)
-		$("#jquery_jplayer_vi_panel").fadeIn();
+	if (g_show_panel_lock == 0) {
+		$("#jquery_jplayer_vi_panel").fadeIn().
+		css('z-index', g_z_index);
+	}
 }
 
 function remove_ctrl_panel()
@@ -149,11 +152,12 @@ function show_loading()
 		"-webkit-box-shadow": "0 2px 4px rgba(0, 0, 0, 0.2)",
 		"-moz-box-shadow": "0 2px 4px rgba(0, 0, 0, 0.2)",
 		"box-shadow": "0 2px 4px rgba(0, 0, 0, 0.2)",
-		"z-index": "2147483640 !important",
+		"z-index": g_z_index,
 		"opacity": "0.99"
 	}).center().hide().fadeIn();
 
-	$('#jquery_jplayer_status').center();
+	$('#jquery_jplayer_status').center().
+	css('z-index', g_z_index);
 }
 
 function remove_loading()
