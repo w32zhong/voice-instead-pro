@@ -31,11 +31,11 @@
 </template>
 
 <script>
-var background = chrome.extension.getBackgroundPage();
+var bkgd = chrome.extension.getBackgroundPage();
 
 module.exports = {
 	data: function () {
-		return background.g_api_settings;
+		return bkgd.g_api_settings;
 	},
 	created: function () {
 		console.log('popup.vue created.')
@@ -43,7 +43,9 @@ module.exports = {
 	methods: {
 		save: function () {
 			console.log('config changed.');
-			config_write(module.exports.data());
+			newData = module.exports.data();
+			config_write(newData);
+			bkgd.g_api_settings = newData;
 		}
 	}
 };
@@ -52,8 +54,7 @@ module.exports = {
 
 <style>
 pre {
-/*
+/**/
 display: none;
-*/
 }
 </style>
