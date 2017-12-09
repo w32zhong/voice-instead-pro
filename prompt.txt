@@ -1,0 +1,101 @@
+Tired of reading long text? why not convert text to speech so that you can hear the text on websites? 
+
+This extension helps you select and speak text in your browser with the following two advantages:
+
+(1) Voice Instead uses TTS(text to speech) engine in human voice quality. 
+
+(2) Voice Instead enables extremely long text to be read by a single click without a long delay, and the speech is very smooth!
+
+(3) Voice Instead supports 10+ languages. 
+
+Usage: 
+Select text on any Chrome page (even PDF file!), right click, and on the content page menu, click `voice instead'! 
+Click Chrome upper-right popup icon to adjust API parameters.
+
+Important Changes:
+
+Version 17.12.9.42:
+* Rewrite framework, enable to read in background, and support more languages.
+
+Version 17.12.1.41:
+* Update IBM API URL, drop voicerss API temporarily because its "Referer" restriction.
+
+Version 17.3.3.40:
+* Fixed panel image style to avoid unintended CSS inheritance.
+
+Version 17.2.22.39:
+* Update responsivevoice API URL.
+
+Version 16.107.17.36:
+* Introduce IBM TTS API.
+
+Version 16.105.10.34:
+* Address the *pause-in-the-middle* problem by providing an additional parameter for user to adjust.
+
+Version 16.103.11.30:
+* User can now dismiss loading status.
+* Panel bar is relocated to the bottom of page.
+* Backward compatibility: choice for new and old TTS API.
+
+Version 16.5.6.29:
+* Use image button instead of font button on top panel.
+
+Version 16.5.6.28:
+* Fix a minor js issue.
+
+Version 16.5.6.27:
+* Make sure yellow window goes to the top (max z-index), also fix the "set to default" button issue.
+
+Version 16.5.6.26:
+* Fix first-time config data loading problem.
+
+Version 16.5.6.25:
+* New TTS APT, add speed, volume and voice options.
+
+Version 15.10.15.24:
+* Cancel Opera support as ogg/wav in Opera cannot get duration info. 
+
+Version 15.10.15.23:
+* Use ogg format audio to add support to Opera. 
+
+Version 15.7.6.22:
+* Added "pause" and "play" panel buttons. 
+
+Version 15.3.29.21:
+* Fix the issue: stop reading caused by '<' and '>'
+
+Version 15.3.27.20:
+* Fixed-size words font in panel and a non-anchor "stop reading" link.
+
+Version 15.3.27.19:
+* Better String Slice, handling reading pause point better even without comma/period signs.
+
+Version 15.3.24.18:
+* Better aligned "Loading" text.
+
+Version 15.3.24.17:
+* better top position method to prevent panel vibrating.
+
+Version 15.3.24.16:
+* add the "stop" link and panel bar on top of the page.
+
+Version 15.2.17.15:
+* remove the repeating speech when the text is all read.
+
+Version 14.10.11.13:
+* TTS API not working because of hostname moved, fixed the problem by using `www.' API hostname. And fixed the duplicated voice player in a page containing <iframe>. 
+
+Version 14.8.8.17:
+* Fix an issue on Chrome 36: voice does not load.
+* The extension is AD-free now!!
+
+Version 14.2.2:
+* Using another TTS API, with better voice quality. (The old one seems not working well)
+
+Version 13.8.12.7:
+* A great improvement on handling punctuation mark and other symbols.
+* Support added to webpages that contains <iframe> element(s).
+
+Help Voice Instead improve: Send feedbacks to clock126@126.com and zhongwei@udel.edu (please send to both email addresses).
+
+Is it useful? Help me rate it now!
