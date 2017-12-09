@@ -32,7 +32,7 @@ function sendMsgToTab(msg) {
 	chrome.tabs.query(
 		{active: true, currentWindow: true },
 		function(tabs) {
-			if (tabs[0].id != undefined) {
+			if (tabs[0] != undefined) {
 				chrome.tabs.sendMessage(tabs[0].id, msg);
 			} else {
 				console.log('Not a normal HTML page.');
@@ -85,7 +85,7 @@ function newAudioElement() {
 	//audioElement.setAttribute("muted", "");
 	audioElement.setAttribute("preload", "auto");
 	//audioElement.src= '';
-	audioElement.src = 'http://lezotre.free.fr/Mp3/disco.mp3';
+	audioElement.src = ''; //'http://lezotre.free.fr/Mp3/disco.mp3';
 	// document.body.appendChild(audioElement);
 
 	return audioElement;
@@ -110,6 +110,15 @@ function tts_api_url(text)
 	url += '&' + apiList[api].txt_uri_key + '=' + enc_txt;
 
 	return url;
+}
+
+function tts_api_voice_gap()
+{
+	var api = g_api_settings.apiChoice;
+	var apiList = g_api_settings.apiList;
+	var gap = apiList[api].voice_gap;
+	//console.log('using voice gap: ' + gap)
+	return gap;
 }
 
 /*
@@ -171,7 +180,7 @@ function recur_play(audio_arr, trunks, i) {
 			function onTimeUpdate(cur, dur) {
 				// console.log(cur + '/' + dur);
 				var left_time = dur - cur;
-				if (left_time < 1.2) {
+				if (left_time <= tts_api_voice_gap()) {
 					/* start to play the next trunk */
 					recur_play(audio_arr, trunks, i + 1);
 					return true; /* stop this trunk */

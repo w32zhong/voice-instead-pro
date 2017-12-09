@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sat Dec  9 15:22:18 EST 2017',
+	'modifyDate': 'Sat Dec  9 15:54:38 EST 2017',
 	'apiChoice': 0,
 	'apiList':
 	[
@@ -9,6 +9,7 @@ function config_default() {
 			'website': 'http://www.ibm.com/watson/developercloud/text-to-speech.html',
 			'url': 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize',
 			'txt_uri_key': 'text',
+			'voice_gap': 0,
 			'options': [
 				{
 					'name': 'Voice',
@@ -36,6 +37,7 @@ function config_default() {
 			'website': 'https://responsivevoice.com',
 			'url': 'https://code.responsivevoice.org/getvoice.php',
 			'txt_uri_key': 't',
+			'voice_gap': 0,
 			'options': [
 				{
 					'name': 'Speech speed',
@@ -112,6 +114,7 @@ function config_default() {
 			'website': 'http://www.voicerss.org/api/',
 			'url': 'http://www.voicerss.org/controls/speech.ashx',
 			'txt_uri_key': 'src',
+			'voice_gap': 1.2,
 			'options': [
 				{
 					'name': 'Language',
@@ -151,15 +154,15 @@ function config_default() {
 					'uri_key': 'r',
 					'choice': 0,
 					'uri_val': [
-						['slow', -10],
-						['normal', 0],
-						['fast', 10]
+						['Slow', -10],
+						['Normal', 0],
+						['Fast', 10]
 					]
 				}
 			]
 		}
 	],
-	"test_text": "The voice consists of sound made by a human being using the vocal folds for talking, reading, singing, laughing, crying, screaming etc. The human voice is specifically a part of human sound production in which the vocal folds (vocal cords) are the primary sound source."
+	"test_text": "Speech synthesis is the artificial production of human speech. A computer system used for this purpose is called a speech computer or speech synthesizer, and can be implemented in software or hardware products. A text-to-speech (TTS) system converts normal language text into speech; other systems render symbolic linguistic representations like phonetic transcriptions into speech."
 	};
 }
 
@@ -169,7 +172,7 @@ function config_write(config) {
 
 function config_read(ret_callbk) {
 	chrome.storage.local.get(null, function (current_cfg) {
-		default_cfg = config_default();
+		var default_cfg = config_default();
 		if (current_cfg.modifyDate != default_cfg.modifyDate) {
 			console.log('config schema changed, set to default values.');
 			config_write(default_cfg);

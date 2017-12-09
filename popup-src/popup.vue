@@ -19,8 +19,8 @@
 		</select>
 	</div>
 
-	<button class="btn btn-warning">Test speech</button>
-	<button class="btn btn-default">Reset to default</button>
+	<button class="btn btn-warning" @click="test()">Test speech</button>
+	<button class="btn btn-default" @click="reset()">Reset to default</button>
 
 	<pre>Chosen API: {{ apiChoice }}</pre>
 </div>
@@ -41,9 +41,19 @@ module.exports = {
 	methods: {
 		save: function () {
 			console.log('config changed.');
-			newData = module.exports.data();
-			config_write(newData);
-			bkgd.g_api_settings = newData;
+			var newCfg = module.exports.data();
+			config_write(newCfg);
+			bkgd.g_api_settings = newCfg;
+		},
+		test: function () {
+			var testTxt = module.exports.data().test_text;
+			bkgd.speech_stop();
+			bkgd.text2speech(testTxt);
+		},
+		reset: function () {
+			var default_cfg = config_default();
+			config_write(default_cfg);
+			bkgd.g_api_settings = default_cfg;
 		}
 	}
 };
