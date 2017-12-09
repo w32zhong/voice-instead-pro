@@ -32,7 +32,11 @@ function sendMsgToTab(msg) {
 	chrome.tabs.query(
 		{active: true, currentWindow: true },
 		function(tabs) {
-			chrome.tabs.sendMessage(tabs[0].id, msg);
+			if (tabs[0].id != undefined) {
+				chrome.tabs.sendMessage(tabs[0].id, msg);
+			} else {
+				console.log('Not a normal HTML page.');
+			}
 		}
 	);
 }
@@ -90,18 +94,20 @@ function newAudioElement() {
 /*
  * TTS APIs' URL generator
  */
-function tts_api_url(api_name, text)
+function tts_api_url(text)
 {
-	url_voicerss = 'http://www.voicerss.org/controls/speech.ashx?';
-	url = '';
-	switch (api_name) {
-	case 'voicerss':
-		url = url_voicerss;
-		url += 'hl=en-us&';
-		url += 'src=' + encodeURIComponent(text);
-		break;
-	default:
+	var api = g_api_settings.apiChoice;
+	var apiList = g_api_settings.apiList;
+
+	enc_txt = api.test_text;
+	if (text != null) enc_txt = encodeURIComponent(text);
+
+	url = apiList[api].url + '?';
+	for (var i = 0; i < apiList[api].options.length; i++) {
+		option = apiList[api].options[i];
+		url += option.uri_key + '=' + option.choice + '&';
 	}
+	url += '&' + apiList[api].txt_uri_key + '=' + enc_txt;
 
 	return url;
 }
@@ -184,7 +190,7 @@ function recur_play(audio_arr, trunks, i) {
 
 	/* at the same time prepare and load the next trunk */
 	if (i + 1 < trunks.length) {
-		url = tts_api_url('voicerss', trunks[i + 1]);
+		url = tts_api_url(trunks[i + 1]);
 		audio_load(audio_arr[(i + 1) % 2], url, function (c) {
 			if (c != 200) {
 				/* download failed */

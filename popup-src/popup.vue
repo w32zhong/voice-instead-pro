@@ -6,7 +6,7 @@
 	<div class="radio" v-for="(api, idx) in apiList">
 		<label>
 		<input type="radio" :value="idx" v-model="apiChoice" @change="save()">
-		{{ api.name }} (<a target="_blank" :href="api.url">link</a>)
+		{{ api.name }} (<a target="_blank" :href="api.website">link</a>)
 		</label>
 	</div>
 
@@ -22,9 +22,7 @@
 	<button class="btn btn-warning">Test speech</button>
 	<button class="btn btn-default">Reset to default</button>
 
-	<pre>
-	Chosen API: {{ apiChoice }}
-	</pre>
+	<pre>Chosen API: {{ apiChoice }}</pre>
 </div>
 </form>
 

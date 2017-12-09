@@ -1,58 +1,149 @@
-//var url = 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize?text=hello%20world&voice=en-US_AllisonVoice';
-
 function config_default() {
 	return {
-	'modifyDate': 'Sat Dec  9 04:25:02 EST 2017',
+	'modifyDate': 'Sat Dec  9 15:22:18 EST 2017',
 	'apiChoice': 0,
 	'apiList':
 	[
 		{
 			'name': 'IBM Watson',
-			'url': 'http://www.ibm.com/watson/developercloud/text-to-speech.html',
+			'website': 'http://www.ibm.com/watson/developercloud/text-to-speech.html',
+			'url': 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize',
+			'txt_uri_key': 'text',
 			'options': [
 				{
 					'name': 'Voice',
-					'uri_key': 'vo',
-					'choice': 'alice',
+					'uri_key': 'voice',
+					'choice': 'en-US_AllisonVoice',
 					'uri_val': [
-						['Alice', 'alice'],
-						['Bob', 'bob']
+						['Michael (US)', 'en-US_MichaelVoice'],
+						['Lisa (US)', 'en-US_LisaVoice'],
+						['Kate (EN)', 'en-GB_KateVoice'],
+						['Renee (FR)', 'fr-FR_ReneeVoice'],
+						['Birgit (DE)', 'de-DE_BirgitVoice'],
+						['Dieter (DE)', 'de-DE_DieterVoice'],
+						['Francesca (IT)', 'it-IT_FrancescaVoice'],
+						['Emi (JP)', 'ja-JP_EmiVoice'],
+						['Isabela (PT)', 'pt-BR_IsabelaVoice'],
+						['Enrique (ES)', 'es-ES_EnriqueVoice'],
+						['Sofia (ES)', 'es-US_SofiaVoice'],
+						['Allison (US)', 'en-US_AllisonVoice']
+					]
+				}
+			]
+		},
+		{
+			'name': 'Responsive Voice',
+			'website': 'https://responsivevoice.com',
+			'url': 'https://code.responsivevoice.org/getvoice.php',
+			'txt_uri_key': 't',
+			'options': [
+				{
+					'name': 'Speech speed',
+					'uri_key': 'rate',
+					'choice': '0.5',
+					'uri_val': [
+						['Very slow', '0.2'],
+						['Slow', '0.3'],
+						['Normal', '0.5'],
+						['Fast', '0.7'],
+						['Very Fast', '0.8'],
+						['Bolt Speech', '1.0']
+					]
+				},
+				{
+					'name': 'Volume',
+					'uri_key': 'vol',
+					'choice': '1.0',
+					'uri_val': [
+						['1.0', '1.0'],
+						['0.8', '0.8'],
+						['0.6', '0.6'],
+						['0.4', '0.4'],
+						['0.2', '0.2']
 					]
 				},
 				{
 					'name': 'Language',
-					'uri_key': 'hl',
-					'choice': 'en-us',
+					'uri_key': 'tl',
+					'choice': 'en_US',
 					'uri_val': [
-						['English', 'en-us'],
-						['Chinese', 'zh-cn']
+						['English United States', 'en_US'],
+						['English United Kingdom', 'en_GB'],
+						['English India', 'en_IN'],
+						['German Germany', 'de_DE'],
+						['Spanish Spain', 'es_ES'],
+						['Spanish Mexico', 'es_MX'],
+						['Spanish United States', 'es_US'],
+						['French Belgium', 'fr_BE'],
+						['French France', 'fr_FR'],
+						['Indonesian Indonesia', 'in_ID'],
+						['Italian Italy', 'it_IT'],
+						['Hindi India', 'hi_IN'],
+						['Japanese Japan', 'ja_JP'],
+						['Korean South Korea', 'ko_KR'],
+						['Dutch Netherlands', 'nl_NL'],
+						['Polish Poland', 'pl_PL'],
+						['Portuguese Brazil', 'pt_BR'],
+						['Portuguese Portugal', 'pt_PT'],
+						['Russian Russia', 'ru_RU'],
+						['Thai Thailand', 'th_TH'],
+						['Turkish Turkey', 'tr_TR'],
+						['Chinese China', 'zh_CN'],
+						['Chinese Hong Kong', 'zh_HK'],
+						['Chinese Taiwan', 'zh_TW']
 					]
 				},
 				{
-					'name': 'Speech speed',
-					'uri_key': 'r',
-					'choice': 0,
+					'name': 'Pitch',
+					'uri_key': 'pitch',
+					'choice': '0.5',
 					'uri_val': [
-						['very slow', -10],
-						['slow', -5],
-						['normal', 0],
-						['fast', 5],
-						['very fast', 10]
+						['0.1', '0.1'],
+						['0.3', '0.3'],
+						['0.5', '0.5'],
+						['0.7', '0.7'],
+						['0.9', '0.9']
 					]
 				}
 			]
 		},
 		{
 			'name': 'Voice RSS',
-			'url': 'http://www.voicerss.org/api/',
+			'website': 'http://www.voicerss.org/api/',
+			'url': 'http://www.voicerss.org/controls/speech.ashx',
+			'txt_uri_key': 'src',
 			'options': [
 				{
 					'name': 'Language',
 					'uri_key': 'hl',
 					'choice': 'en-us',
 					'uri_val': [
-						['English', 'en-us'],
-						['Chinese', 'zh-cn']
+						["English (UnitedStates)", "en-us"],
+						["English (Canada)", "en-ca"],
+						["English (GreatBritain)", "en-gb"],
+						["English (India)", "en-in"],
+						["English (Australia)", "en-au"],
+						["French (Canada)", "fr-ca"],
+						["French (France)", "fr-fr"],
+						["Chinese (China)", "zh-cn"],
+						["Chinese (HongKong)", "zh-hk"],
+						["Chinese (Taiwan)", "zh-tw"],
+						["Danish ", "da-dk"],
+						["Dutch ", "nl-nl"],
+						["Finnish ", "fi-fi"],
+						["Russian ", "ru-ru"],
+						["German ", "de-de"],
+						["Italian ", "it-it"],
+						["Japanese ", "ja-jp"],
+						["Korean ", "ko-kr"],
+						["Norwegian ", "nb-no"],
+						["Polish ", "pl-pl"],
+						["Portuguese (Brazil)", "pt-br"],
+						["Portuguese (Portugal)", "pt-pt"],
+						["Spanish (Mexico)", "es-mx"],
+						["Spanish (Spain)", "es-es"],
+						["Swedish (Sweden)", "sv-se"],
+						["Catalan ", "ca-es"]
 					]
 				},
 				{
@@ -60,16 +151,16 @@ function config_default() {
 					'uri_key': 'r',
 					'choice': 0,
 					'uri_val': [
-						['very slow', -10],
-						['slow', -5],
+						['slow', -10],
 						['normal', 0],
-						['fast', 5],
-						['very fast', 10]
+						['fast', 10]
 					]
 				}
 			]
 		}
-	]};
+	],
+	"test_text": "The voice consists of sound made by a human being using the vocal folds for talking, reading, singing, laughing, crying, screaming etc. The human voice is specifically a part of human sound production in which the vocal folds (vocal cords) are the primary sound source."
+	};
 }
 
 function config_write(config) {
