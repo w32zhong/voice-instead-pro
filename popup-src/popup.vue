@@ -24,7 +24,7 @@
 
 	<div>
 	<pre>Chosen API: {{ apiChoice }}</pre>
-	<span class="stop" v-if="popup_playing"><a @click="stop">Stop</a> the speech</span>
+	<span class="stop" v-if="popup_playing"><a @click="stop">Stop</a> current speech</span>
 	<span class="ps">About the
 	<a target="_blank" href="https://approach0.xyz/tkblog/about.html">author</a></span>
 	</div>
@@ -66,12 +66,13 @@ module.exports = {
 		},
 		stop: function () {
 			bkgd.speech_stop();
+			bkgd.sendMsgToTab({"event": "ended", "args": {}});
 		},
 		reset: function () {
 			var default_cfg = config_default();
 			config_write(default_cfg);
 			bkgd.g_api_settings = default_cfg;
-			bkgd.speech_stop();
+			this.stop();
 		}
 	}
 };

@@ -63,6 +63,11 @@ function audio_control_dom()
 		dom += '<div id="' + id + '" class="ac_btn">' +
 		       '<img src="' + url + '"/></div>';
 	}
+
+	/* a little advertisement */
+	review_url = 'https://chrome.google.com/webstore/detail/voice-instead/kphdioekpiaekpmlkhpaicehepbkccbf/reviews';
+	dom += '<br/>Like me? <a href="' + review_url + '" target="_blank">Rate</a> me now!';
+
 	return dom;
 }
 

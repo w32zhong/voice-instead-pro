@@ -185,6 +185,9 @@ function recur_play(audio_arr, trunks, i) {
 					/* start to play the next trunk */
 					recur_play(audio_arr, trunks, i + 1);
 					return true; /* stop this trunk */
+				} else if (cur == 0) {
+					console.log('Trunk[' + i + '] aborted.');
+					return true; /* stop when new speech loaded. */
 				}
 				return false;
 			},
