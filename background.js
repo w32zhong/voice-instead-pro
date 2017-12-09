@@ -44,17 +44,17 @@ function sendMsgToTab(msg) {
 /*
  * Speech play control functions.
  */
-var playing_idx = -1;
+var g_playing_idx = -1;
 
 function speech_play() {
-	if (playing_idx != -1) {
-		[a1, a2][playing_idx].play();
+	if (g_playing_idx != -1) {
+		[a1, a2][g_playing_idx].play();
 	}
 }
 
 function speech_pause() {
-	if (playing_idx != -1) {
-		[a1, a2][playing_idx].pause();
+	if (g_playing_idx != -1) {
+		[a1, a2][g_playing_idx].pause();
 	}
 }
 
@@ -64,11 +64,12 @@ Audio.prototype.stop = function() {
 };
 
 function speech_stop() {
-	if (playing_idx != -1) {
-		[a1, a2][playing_idx].pause();
+	if (g_playing_idx != -1) {
+		[a1, a2][g_playing_idx].pause();
 	}
 	a1.stop();
 	a2.stop();
+	g_playing_idx = -1;
 }
 
 /*
@@ -174,7 +175,7 @@ function recur_play(audio_arr, trunks, i) {
 			return;
 		}
 		console.log('Trunk[' + i + '] plays.');
-		playing_idx = i % 2;
+		g_playing_idx = i % 2;
 		audio_play(
 			audio_arr[i % 2],
 			function onTimeUpdate(cur, dur) {
@@ -191,7 +192,7 @@ function recur_play(audio_arr, trunks, i) {
 				console.log('Trunk[' + i + '] ends.');
 				if (i + 1 == trunks.length) {
 					sendMsgToTab({"event": "ended", "args": {}});
-					playing_idx = -1;
+					g_playing_idx = -1;
 				}
 			}
 		);

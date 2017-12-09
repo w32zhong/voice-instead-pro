@@ -1,7 +1,8 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sat Dec  9 15:54:38 EST 2017',
+	'modifyDate': 'Sat Dec  9 16:32:07 EST 2017',
 	'apiChoice': 0,
+	'popup_playing': false,
 	'apiList':
 	[
 		{
