@@ -14,7 +14,7 @@ Click Chrome upper-right popup icon to adjust API parameters.
 
 Important Changes:
 
-Version 17.12.9.42:
+Version 17.12.9.43:
 * Rewrite framework, enable to read in background, and support more languages.
 
 Version 17.12.1.41:
