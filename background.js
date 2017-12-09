@@ -1,4 +1,11 @@
 /*
+ * Global API settings
+ */
+config_read(function (config) {
+	g_api_settings = config;
+});
+
+/*
  * Message listener and sender API
  */
 chrome.runtime.onMessage.addListener(
