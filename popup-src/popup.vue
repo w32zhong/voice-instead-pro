@@ -5,14 +5,14 @@
 <div class="form-group">
 	<div class="radio" v-for="(api, idx) in apiList">
 		<label>
-		<input type="radio" :value="idx" v-model="apiChoice">
+		<input type="radio" :value="idx" v-model="apiChoice" @change="save()">
 		{{ api.name }} (<a target="_blank" :href="api.url">link</a>)
 		</label>
 	</div>
 
 	<div class="form-group" v-for="option in apiList[apiChoice].options">
 		<label> {{ option.name }}</label>
-		<select class="form-control" v-model="option.choice">
+		<select class="form-control" v-model="option.choice" @change="save()">
 			<option v-for="val in option.uri_val" :value="val[1]">
 				{{ val[0] }}
 			</option>
@@ -39,12 +39,15 @@ module.exports = {
 	},
 	created: function () {
 		console.log('popup.vue created.')
+	},
+	methods: {
+		save: function () {
+			console.log('config changed.');
+			config_write(module.exports.data());
+		}
 	}
 };
 
-setInterval(function() {
-	config_write(module.exports.data());
-}, 1100);
 </script>
 
 <style>
