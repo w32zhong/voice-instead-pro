@@ -1,0 +1,4 @@
+popup-src/bundle.js
+popup-src/yarn.lock
+popup-src/node_modules
+*.swp

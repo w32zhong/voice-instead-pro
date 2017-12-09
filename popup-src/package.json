@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "css-loader": "^0.28.7",
+    "vue": "^2.5.9",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.9"
+  }
+}
