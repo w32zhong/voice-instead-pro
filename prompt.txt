@@ -14,6 +14,9 @@ Click Chrome upper-right popup icon to adjust API parameters.
 
 Important Changes:
 
+Version 17.12.9.44:
+* Tuning voice_gap parameters, to cope with the pause-in-the-middle problem.
+
 Version 17.12.9.43:
 * Rewrite framework, enable to read in background, and support more languages.
 
