@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sat Dec  9 16:32:07 EST 2017',
+	'modifyDate': 'Sun Dec 10 00:13:11 EST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'apiList':
@@ -10,7 +10,7 @@ function config_default() {
 			'website': 'http://www.ibm.com/watson/developercloud/text-to-speech.html',
 			'url': 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize',
 			'txt_uri_key': 'text',
-			'voice_gap': 0,
+			'voice_gap': 0.55,
 			'options': [
 				{
 					'name': 'Voice',
@@ -38,7 +38,7 @@ function config_default() {
 			'website': 'https://responsivevoice.com',
 			'url': 'https://code.responsivevoice.org/getvoice.php',
 			'txt_uri_key': 't',
-			'voice_gap': 0,
+			'voice_gap': 0.55,
 			'options': [
 				{
 					'name': 'Speech speed',

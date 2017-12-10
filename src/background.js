@@ -160,7 +160,7 @@ function audio_play(audio, onTimeUpdate, onEnd)
 		} else if (audio.ended) {
 			stop_procedure();
 		}
-	}, 100);
+	}, 30);
 }
 
 /*
@@ -183,6 +183,8 @@ function recur_play(audio_arr, trunks, i) {
 				var left_time = dur - cur;
 				if (left_time <= tts_api_voice_gap()) {
 					/* start to play the next trunk */
+					console.log('Left time: ' + left_time);
+					console.log('Gap: ' + tts_api_voice_gap());
 					recur_play(audio_arr, trunks, i + 1);
 					return true; /* stop this trunk */
 				} else if (cur == 0) {
