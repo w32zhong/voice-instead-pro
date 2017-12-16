@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Fri Dec 15 20:42:15 EST 2017',
+	'modifyDate': 'Sat Dec 16 00:54:45 EST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'apiList':
@@ -26,6 +26,13 @@ function config_default() {
 						['-80', '-80%'],
 						['-100', '-100%']
 					]
+				},
+				{
+					'name': '_',
+					'SSML': true,
+					'uri_key': 'type',
+					'choice': 'Custom',
+					'uri_val': []
 				},
 				// {
 				// 	'name': 'Pitch',
@@ -151,6 +158,83 @@ function config_default() {
 				}
 			]
 		},
+//		{
+//			'name': 'Baidu Deep Speech',
+//			'website': 'http://yuyin.baidu.com/#try',
+//			'url': 'https://ai.baidu.com/aidemo?type=tns2&idx=1&tex=hello%2520world&cuid=baidu_speech_demo&cod=2&lan=zh&ctp=1&pdt=1&spd=5&per=2&vol=5&pit=5',
+//			'txt_uri_key': 't',
+//			'voice_gap': 0.55,
+//			'options': [
+//				{
+//					'name': 'Speech speed',
+//					'uri_key': 'rate',
+//					'choice': '0.5',
+//					'uri_val': [
+//						['Very slow', '0.2'],
+//						['Slow', '0.3'],
+//						['Normal', '0.5'],
+//						['Fast', '0.7'],
+//						['Very Fast', '0.8'],
+//						['Bolt Speech', '1.0']
+//					]
+//				},
+//				{
+//					'name': 'Volume',
+//					'uri_key': 'vol',
+//					'choice': '1.0',
+//					'uri_val': [
+//						['1.0', '1.0'],
+//						['0.8', '0.8'],
+//						['0.6', '0.6'],
+//						['0.4', '0.4'],
+//						['0.2', '0.2']
+//					]
+//				},
+//				{
+//					'name': 'Language',
+//					'uri_key': 'tl',
+//					'choice': 'en_US',
+//					'uri_val': [
+//						['English United States', 'en_US'],
+//						['English United Kingdom', 'en_GB'],
+//						['English India', 'en_IN'],
+//						['German Germany', 'de_DE'],
+//						['Spanish Spain', 'es_ES'],
+//						['Spanish Mexico', 'es_MX'],
+//						['Spanish United States', 'es_US'],
+//						['French Belgium', 'fr_BE'],
+//						['French France', 'fr_FR'],
+//						['Indonesian Indonesia', 'in_ID'],
+//						['Italian Italy', 'it_IT'],
+//						['Hindi India', 'hi_IN'],
+//						['Japanese Japan', 'ja_JP'],
+//						['Korean South Korea', 'ko_KR'],
+//						['Dutch Netherlands', 'nl_NL'],
+//						['Polish Poland', 'pl_PL'],
+//						['Portuguese Brazil', 'pt_BR'],
+//						['Portuguese Portugal', 'pt_PT'],
+//						['Russian Russia', 'ru_RU'],
+//						['Thai Thailand', 'th_TH'],
+//						['Turkish Turkey', 'tr_TR'],
+//						['Chinese China', 'zh_CN'],
+//						['Chinese Hong Kong', 'zh_HK'],
+//						['Chinese Taiwan', 'zh_TW']
+//					]
+//				},
+//				{
+//					'name': 'Pitch',
+//					'uri_key': 'pitch',
+//					'choice': '0.5',
+//					'uri_val': [
+//						['0.1', '0.1'],
+//						['0.3', '0.3'],
+//						['0.5', '0.5'],
+//						['0.7', '0.7'],
+//						['0.9', '0.9']
+//					]
+//				}
+//			]
+//		},
 		{
 			'name': 'Voice RSS',
 			'website': 'http://www.voicerss.org/api/',

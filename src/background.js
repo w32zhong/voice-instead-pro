@@ -104,7 +104,7 @@ function tts_api_url(text)
 	if (text != null) enc_txt = encodeURIComponent(text);
 
 	/* get SSML parameters first */
-	SSML_head_begin = encodeURIComponent('<voice-transformation type="Custom"');
+	SSML_head_begin = encodeURIComponent('<voice-transformation');
 	SSML_head_body = '';
 	SSML_head_end = encodeURIComponent('>');
 	SSML_tail = encodeURIComponent('</voice-transformation>');

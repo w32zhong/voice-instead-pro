@@ -11,12 +11,14 @@
 	</div>
 
 	<div class="form-group" v-for="option in apiList[apiChoice].options">
+		<div v-if="option.uri_val.length > 0">
 		<label> {{ option.name }}</label>
 		<select class="form-control" v-model="option.choice" @change="save()">
 			<option v-for="val in option.uri_val" :value="val[1]">
 				{{ val[0] }}
 			</option>
 		</select>
+		</div>
 	</div>
 
 	<button class="btn btn-warning" @click="test()">Test speech</button>
