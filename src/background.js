@@ -103,12 +103,38 @@ function tts_api_url(text)
 	enc_txt = api.test_text;
 	if (text != null) enc_txt = encodeURIComponent(text);
 
+	/* get SSML parameters first */
+	SSML_head_begin = encodeURIComponent('<voice-transformation type="Custom"');
+	SSML_head_body = '';
+	SSML_head_end = encodeURIComponent('>');
+	SSML_tail = encodeURIComponent('</voice-transformation>');
+	for (var i = 0; i < apiList[api].options.length; i++) {
+		option = apiList[api].options[i];
+		if (option.SSML) {
+			SSML_head_body += encodeURIComponent(
+				' ' + option.uri_key +
+				'=' + '"' + option.choice + '"'
+			);
+		}
+	}
+
+	/* apply URL parameters */
 	url = apiList[api].url + '?';
 	for (var i = 0; i < apiList[api].options.length; i++) {
 		option = apiList[api].options[i];
-		url += option.uri_key + '=' + option.choice + '&';
+		if (!option.SSML) {
+			url += option.uri_key + '=' + option.choice + '&';
+		}
 	}
-	url += '&' + apiList[api].txt_uri_key + '=' + enc_txt;
+	url += '&' + apiList[api].txt_uri_key + '=';
+
+	/* finally encode apply the TTS text */
+	if (SSML_head_body == '') {
+		url += enc_txt;
+	} else {
+		url += SSML_head_begin + SSML_head_body + SSML_head_end +
+		       enc_txt + SSML_tail;
+	}
 
 	return url;
 }

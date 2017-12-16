@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sun Dec 10 00:13:11 EST 2017',
+	'modifyDate': 'Fri Dec 15 20:42:15 EST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'apiList':
@@ -12,6 +12,47 @@ function config_default() {
 			'txt_uri_key': 'text',
 			'voice_gap': 0.55,
 			'options': [
+				{
+					'name': 'Speed',
+					'SSML': true,
+					'uri_key': 'rate',
+					'choice': '0%',
+					'uri_val': [
+						['100', '100%'],
+						['80', '80%'],
+						['50', '50%'],
+						['0', '0%'],
+						['-50', '-50%'],
+						['-80', '-80%'],
+						['-100', '-100%']
+					]
+				},
+				// {
+				// 	'name': 'Pitch',
+				// 	'SSML': true,
+				// 	'uri_key': 'pitch',
+				// 	'choice': '0%',
+				// 	'uri_val': [
+				// 		['100', '100%'],
+				// 		['50', '50%'],
+				// 		['0', '0%'],
+				// 		['-50', '-50%'],
+				// 		['-100', '-100%']
+				// 	]
+				// },
+				{
+					'name': 'Pitch range',
+					'SSML': true,
+					'uri_key': 'pitch_range',
+					'choice': '0%',
+					'uri_val': [
+						['100', '100%'],
+						['50', '50%'],
+						['0', '0%'],
+						['-50', '-50%'],
+						['-100', '-100%']
+					]
+				},
 				{
 					'name': 'Voice',
 					'uri_key': 'voice',
