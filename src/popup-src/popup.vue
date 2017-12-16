@@ -1,12 +1,15 @@
 <template>
 
 <form>
-<h3>Choose TTS API</h3>
+<h4>Select Text-to-Speech API</h4>
 <div class="form-group">
 	<div class="radio" v-for="(api, idx) in apiList">
 		<label>
 		<input type="radio" :value="idx" v-model="apiChoice" @change="save()">
-		{{ api.name }} (<a target="_blank" :href="api.website">link</a>)
+		{{ api.name }}
+		({{ api.description }} <a target="_blank" :href="api.website">
+		<i class="fa fa-external-link" aria-hidden="true"></i>
+		</a>)
 		</label>
 	</div>
 
@@ -21,12 +24,15 @@
 		</div>
 	</div>
 
-	<button class="btn btn-warning" @click="test()">Test speech</button>
+	<button class="btn btn-warning" @click="test()">Test configuration</button>
 	<button class="btn btn-default" @click="reset()">Reset to default</button>
 
 	<div>
 	<pre>Chosen API: {{ apiChoice }}</pre>
-	<span class="stop" v-if="popup_playing"><a @click="stop">Stop</a> current speech</span>
+	<span class="stop" v-if="popup_playing">
+		<i class="fa fa-stop-circle" aria-hidden="true"></i>
+		<a @click="stop">Stop</a> current speech
+	</span>
 	<span class="ps">About the
 	<a target="_blank" href="https://approach0.xyz/tkblog/about.html">author</a></span>
 	</div>
@@ -89,7 +95,7 @@ pre {
 span.ps {
 	font-size: 9px;
 	float: right;
-	margin-top: 10px;
+	margin-top: 14px;
 }
 span.stop {
 	margin-top: 10px;

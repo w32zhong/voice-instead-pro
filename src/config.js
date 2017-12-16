@@ -1,12 +1,13 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sat Dec 16 02:14:34 EST 2017',
+	'modifyDate': 'Sat Dec 16 03:41:05 EST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'apiList':
 	[
 		{
 			'name': 'IBM Watson',
+			'description': 'human-sounding voice',
 			'website': 'http://www.ibm.com/watson/developercloud/text-to-speech.html',
 			'url': 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize',
 			'txt_uri_key': 'text',
@@ -18,13 +19,13 @@ function config_default() {
 					'uri_key': 'rate',
 					'choice': '0%',
 					'uri_val': [
-						['100', '100%'],
-						['80', '80%'],
-						['50', '50%'],
-						['0', '0%'],
-						['-50', '-50%'],
-						['-80', '-80%'],
-						['-100', '-100%']
+						['Bolt', '100%'],
+						['Very fast', '80%'],
+						['Fast', '50%'],
+						['Normal', '0%'],
+						['Slow', '-50%'],
+						['Very slow', '-80%'],
+						['Lazy', '-100%']
 					]
 				},
 				{
@@ -83,6 +84,7 @@ function config_default() {
 		},
 		{
 			'name': 'Responsive Voice',
+			'description': 'multi-language',
 			'website': 'https://responsivevoice.com',
 			'url': 'https://code.responsivevoice.org/getvoice.php',
 			'txt_uri_key': 't',
@@ -98,7 +100,7 @@ function config_default() {
 						['Normal', '0.5'],
 						['Fast', '0.7'],
 						['Very Fast', '0.8'],
-						['Bolt Speech', '1.0']
+						['Bolt', '1.0']
 					]
 				},
 				{
@@ -161,6 +163,7 @@ function config_default() {
 		{
 			'name': 'Baidu Deep Voice',
 			'website': 'http://yuyin.baidu.com/#try',
+			'description': 'best for Chinese',
 			//'url': 'https://ai.baidu.com/aidemo',
 			'url': 'http://tsn.baidu.com/text2audio',
 			'txt_uri_key': 'tex',
@@ -264,6 +267,7 @@ function config_default() {
 		},
 		{
 			'name': 'Voice RSS',
+			'description': 'very stable service',
 			'website': 'http://www.voicerss.org/api/',
 			'url': 'http://www.voicerss.org/controls/speech.ashx',
 			'txt_uri_key': 'src',

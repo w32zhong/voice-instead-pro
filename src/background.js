@@ -30,12 +30,16 @@ chrome.runtime.onMessage.addListener(
 
 function sendMsgToTab(msg) {
 	chrome.tabs.query(
-		{active: true, currentWindow: true },
+		{'status': 'complete'},
 		function(tabs) {
-			if (tabs[0] != undefined) {
-				chrome.tabs.sendMessage(tabs[0].id, msg);
-			} else {
-				console.log('Not a normal HTML page.');
+			/* send msg to content script of *ALL* tabs */
+			for (var i = 0; i < tabs.length; i++) {
+				if (tabs[i] != undefined) {
+					console.log('msg tab['+ i + '].');
+					chrome.tabs.sendMessage(tabs[i].id, msg);
+				} else {
+					console.log('err: msg tab['+ i + '].');
+				}
 			}
 		}
 	);
