@@ -1,6 +1,12 @@
 <template>
 
 <form>
+<h4>Configure Shortcut Key</h4>
+	<p>Current shortcut key for reading selected text is
+		<span><a target="_blank" @click="openShortkeySettings()">
+		{{ shortcut_keys == '' ? 'empty' : shortcut_keys }}</a>.
+		</span>
+	</p>
 <h4>Select Text-to-Speech API</h4>
 <div class="form-group">
 	<div class="radio" v-for="(api, idx) in apiList">
@@ -46,6 +52,7 @@ var bkgd = chrome.extension.getBackgroundPage();
 
 setInterval(function() {
 	bkgd.g_api_settings.popup_playing = (bkgd.g_playing_idx >= 0);
+	bkgd.getShortcut();
 }, 600);
 
 module.exports = {
@@ -56,6 +63,9 @@ module.exports = {
 		console.log('popup.vue created.')
 	},
 	watch: {
+		'shortcut_keys': function (newVal, oldVal) {
+			console.log('shortcut_keys changed to ' + newVal);
+		},
 		'popup_playing': function (newVal, oldVal) {
 			console.log('popup_playing changed to ' + newVal);
 		}
@@ -81,6 +91,9 @@ module.exports = {
 			config_write(default_cfg);
 			bkgd.g_api_settings = default_cfg;
 			this.stop();
+		},
+		openShortkeySettings: function () {
+			chrome.tabs.create({url: 'chrome://extensions/configureCommands'});
 		}
 	}
 };

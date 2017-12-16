@@ -1,8 +1,9 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sat Dec 16 03:41:05 EST 2017',
+	'modifyDate': 'Sat Dec 16 13:14:58 EST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
+	'shortcut_keys': '',
 	'apiList':
 	[
 		{

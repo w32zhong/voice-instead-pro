@@ -46,6 +46,48 @@ function sendMsgToTab(msg) {
 }
 
 /*
+ * Shortcut key listener.
+ * Config: chrome://extensions/configureCommands
+ */
+chrome.commands.onCommand.addListener(function(command) {
+	if(command === "speak-selected-text") {
+		chrome.tabs.executeScript({
+				code: "window.getSelection().toString();"
+			}, function(selections) {
+			speech_stop();
+			if (selections == undefined) {
+				text2speech("Unable to use key shortcut in this page.");
+			} else {
+				var sel_txt = selections[0];
+				if (sel_txt == '' || sel_txt == ' ') {
+					text2speech("Please select some text.");
+				} else {
+					text2speech(sel_txt);
+				}
+			}
+		});
+	}
+});
+
+function getShortcut() {
+	chrome.commands.getAll(function (commands) {
+		var i = 0;
+		for (i = 0; i < commands.length; i ++) {
+			var cmd = commands[i];
+			if (cmd.name == "speak-selected-text") {
+				g_api_settings.shortcut_keys = cmd.shortcut;
+				break;
+			}
+		}
+
+		if (i == commands.length)
+			g_api_settings.shortcut_keys = '';
+		else
+			g_api_settings.shortcut_keys = cmd.shortcut;
+	});
+}
+
+/*
  * Speech play control functions.
  */
 var g_playing_idx = -1;
@@ -271,6 +313,7 @@ function text2speech(text) {
  */
 function selectionOnClick(info, tab) {
 	sel_txt = info.selectionText;
+	speech_stop();
 	text2speech(sel_txt);
 }
 
