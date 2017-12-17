@@ -14,7 +14,7 @@ Click Chrome upper-right popup icon to adjust API parameters.
 
 Important Changes:
 
-Version 17.12.9.46:
+Version 17.12.9.47:
 * Enable to configure a keyboard shortcut for reading selected text.
 
 Version 17.12.9.45:

@@ -1,6 +1,6 @@
 {
   "name": "Voice Instead",
-  "version": "17.12.16.46",
+  "version": "17.12.16.47",
   "manifest_version": 2,
 
   "description": "Yet another TTS (text to speech) extension, with natural voice.",
@@ -22,8 +22,8 @@
 	"commands": {
 		"speak-selected-text": {
 			"suggested_key": {
-				"mac": "Command+Z",
-				"default": "Ctrl+Z"
+				"mac": "Command+Q",
+				"default": "Ctrl+Q"
 			},
 			"description": "Speak selected text"
 		}
