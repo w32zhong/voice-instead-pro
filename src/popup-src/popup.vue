@@ -4,7 +4,7 @@
 <h4>Configure Shortcut Key</h4>
 	<p>Current shortcut key for reading selected text is
 		<span><a target="_blank" @click="openShortkeySettings()">
-		{{ shortcut_keys == '' ? 'empty' : shortcut_keys }}</a>.
+		{{ shortcut_keys == '' ? 'not set' : shortcut_keys }}</a>.
 		</span>
 	</p>
 <h4>Select Text-to-Speech API</h4>
