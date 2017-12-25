@@ -241,6 +241,10 @@ function audio_play(audio, onTimeUpdate, onEnd)
 function recur_play(audio_arr, trunks, i) {
 	/* go play the current trunk */
 	if (0 <= i && i < trunks.length) {
+		sendMsgToTab({
+			"event": "subtitle_update",
+			"args": {'subtitle': trunks[i]}
+		});
 		console.log(trunks[i]);
 		if (audio_arr[i % 2] == null) {
 			console.log('Trunk[' + i + '] is empty, abort.');

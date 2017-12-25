@@ -1,3 +1,5 @@
+g_subtitle = '';
+
 $(document).ready(function() {
 	chrome.runtime.onMessage.addListener(
 	function(msg, sender, sendResponse) {
@@ -15,11 +17,21 @@ $(document).ready(function() {
 		case 'ended':
 			remove_ctrl_panel();
 			break;
+		case 'subtitle_update':
+			g_subtitle = msg['args']['subtitle'];
+			$("#g_subtitle").fadeOut(100, function() {
+				$(this).fadeIn();
+			});
 		default:
 			console.log('Invalid event: ' + e);
 			break;
 		}
 	});
+
+	setInterval(function() {
+		$('#g_subtitle').text(g_subtitle);
+		$('#jquery_jplayer_vi_panel').bottom_center();
+	}, 300);
 });
 
 jQuery.fn.center = function ()
@@ -65,8 +77,10 @@ function audio_control_dom()
 	}
 
 	/* a little advertisement */
-	review_url = 'https://chrome.google.com/webstore/detail/voice-instead/kphdioekpiaekpmlkhpaicehepbkccbf/reviews';
-	dom += '<br/>Like me? <a href="' + review_url + '" target="_blank">Rate</a> me now!';
+	// review_url = 'https://chrome.google.com/webstore/detail/voice-instead/kphdioekpiaekpmlkhpaicehepbkccbf/reviews';
+	// dom += '<br/>Like me? <a href="' + review_url + '" target="_blank">Rate</a> me now!';
+	
+	dom += '<br/><span id="g_subtitle"></span>';
 
 	return dom;
 }

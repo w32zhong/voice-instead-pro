@@ -40,7 +40,7 @@
 	<button class="btn btn-warning tst" v-if="!popup_playing" @click="test()">
 		Test voice
 	</button>
-	<button class="btn btn-danger tst" v-if="popup_playing" @click="stop()">
+	<button class="btn btn-warning tst" v-if="popup_playing" @click="stop()">
 		Stop speech
 	</button>
 	<button class="btn btn-default rst" @click="reset()">Reset</button>
