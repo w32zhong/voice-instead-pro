@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sat Dec 16 13:14:58 EST 2017',
+	'modifyDate': 'Sun Dec 24 22:51:59 EST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': '',
@@ -8,7 +8,7 @@ function config_default() {
 	[
 		{
 			'name': 'IBM Watson',
-			'description': 'human-sounding voice',
+			'description': 'Human-sounding voice',
 			'website': 'http://www.ibm.com/watson/developercloud/text-to-speech.html',
 			'url': 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize',
 			'txt_uri_key': 'text',
@@ -85,7 +85,7 @@ function config_default() {
 		},
 		{
 			'name': 'Responsive Voice',
-			'description': 'multi-language',
+			'description': 'Multi-language',
 			'website': 'https://responsivevoice.com',
 			'url': 'https://code.responsivevoice.org/getvoice.php',
 			'txt_uri_key': 't',
@@ -164,7 +164,7 @@ function config_default() {
 		{
 			'name': 'Baidu Deep Voice',
 			'website': 'http://yuyin.baidu.com/#try',
-			'description': 'best for Chinese',
+			'description': 'Best for Chinese',
 			//'url': 'https://ai.baidu.com/aidemo',
 			'url': 'http://tsn.baidu.com/text2audio',
 			'txt_uri_key': 'tex',
@@ -268,7 +268,7 @@ function config_default() {
 		},
 		{
 			'name': 'Voice RSS',
-			'description': 'very stable service',
+			'description': 'Old & stable service',
 			'website': 'http://www.voicerss.org/api/',
 			'url': 'http://www.voicerss.org/controls/speech.ashx',
 			'txt_uri_key': 'src',

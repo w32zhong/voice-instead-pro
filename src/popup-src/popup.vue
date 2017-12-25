@@ -104,8 +104,11 @@ module.exports = {
 </script>
 
 <style>
+a {
+	cursor: pointer;
+}
 div.extra-top {
-	padding-top: 13px;
+	padding-top: 11px;
 }
 button.tst {
 	width: 60%;
