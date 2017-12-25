@@ -14,6 +14,12 @@ Click Chrome upper-right popup icon to adjust API parameters.
 
 Important Changes:
 
+Version 17.12.25.49:
+    * Better split algorithm, best effort to avoid pause-in-the-middle problem.
+    * identify Chinese punctuation signs (in Unicode).
+    * Change voicerss API voice_gap from 1.2 to 0.55
+    * Set default shortcut key: 'Ctrl+Q'
+
 Version 17.12.24.48:
 * Display reading text.
 
@@ -22,9 +28,6 @@ Version 17.12.9.47:
 
 Version 17.12.9.45:
 * Provide speed option for IBM API. Introduce a new Baidu API.
-
-Version 17.12.9.44:
-* Tuning voice_gap parameters, to cope with the pause-in-the-middle problem.
 
 Version 17.12.9.43:
 * Rewrite framework, enable to read in background, and support more languages.
