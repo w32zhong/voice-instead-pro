@@ -2,11 +2,14 @@
 
 <form>
 <h4>Configure Shortcut Key</h4>
+<div class="form-group">
 	<p>Current shortcut key for reading selected text is
 		<span><a target="_blank" @click="openShortkeySettings()">
 		{{ shortcut_keys == '' ? 'not set' : shortcut_keys }}</a>.
 		</span>
 	</p>
+</div>
+
 <h4>Select Text-to-Speech API</h4>
 <div class="form-group">
 	<div class="radio" v-for="(api, idx) in apiList">
@@ -18,7 +21,9 @@
 		</a>)
 		</label>
 	</div>
+</div>
 
+<div class="form-group">
 	<div class="form-group" v-for="option in apiList[apiChoice].options">
 		<div v-if="option.uri_val.length > 0">
 		<label> {{ option.name }}</label>
@@ -29,20 +34,18 @@
 		</select>
 		</div>
 	</div>
-
-	<button class="btn btn-warning" @click="test()">Test configuration</button>
-	<button class="btn btn-default" @click="reset()">Reset to default</button>
-
-	<div>
-	<pre>Chosen API: {{ apiChoice }}</pre>
-	<span class="stop" v-if="popup_playing">
-		<i class="fa fa-stop-circle" aria-hidden="true"></i>
-		<a @click="stop">Stop</a> current speech
-	</span>
-	<span class="ps">About the
-	<a target="_blank" href="https://approach0.xyz/tkblog/about.html">author</a></span>
-	</div>
 </div>
+
+<div class="form-group text-center extra-top">
+	<button class="btn btn-warning tst" v-if="!popup_playing" @click="test()">
+		Test voice
+	</button>
+	<button class="btn btn-danger tst" v-if="popup_playing" @click="stop()">
+		Stop speech
+	</button>
+	<button class="btn btn-default rst" @click="reset()">Reset</button>
+</div>
+
 </form>
 
 </template>
@@ -101,21 +104,16 @@ module.exports = {
 </script>
 
 <style>
-pre {
-/**/
-	display: none;
+div.extra-top {
+	padding-top: 13px;
 }
-span.ps {
-	font-size: 9px;
-	float: right;
-	margin-top: 14px;
+button.tst {
+	width: 60%;
 }
-span.stop {
-	margin-top: 10px;
-	font-size: 12px;
-	float: left;
+button.rst {
+	width: 38%;
 }
-span a:hover {
-	cursor: pointer;
+button.btn {
+	word-spacing: 3px;
 }
 </style>
