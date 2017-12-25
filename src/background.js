@@ -35,7 +35,7 @@ function sendMsgToTab(msg) {
 			/* send msg to content script of *ALL* tabs */
 			for (var i = 0; i < tabs.length; i++) {
 				if (tabs[i] != undefined) {
-					console.log('msg tab['+ i + '].');
+					// console.log('msg tab['+ i + '].');
 					chrome.tabs.sendMessage(tabs[i].id, msg);
 				} else {
 					console.log('err: msg tab['+ i + '].');
@@ -245,7 +245,7 @@ function recur_play(audio_arr, trunks, i) {
 			"event": "subtitle_update",
 			"args": {'subtitle': trunks[i]}
 		});
-		console.log(trunks[i]);
+		console.log('playing: ' + trunks[i]);
 		if (audio_arr[i % 2] == null) {
 			console.log('Trunk[' + i + '] is empty, abort.');
 			return;
@@ -308,7 +308,9 @@ function text2speech(text) {
 
 	sendMsgToTab({"event": "start", "args": {}});
 
+	// text = "This principle also applies to proactive members of the Arch community wanting to get involved and contribute to their favorite Linux distribution and their participation benefits not only the community member and their fellow Archers but all users of free and open source software.";
 	trunks = text2trunks(text);
+	print_trunks(trunks);
 	recur_play([a1, a2], trunks, -1);
 }
 
@@ -350,46 +352,68 @@ chrome.webRequest.onBeforeSendHeaders.addListener(blockCallbk, filter, opts);
 /*
  * Text to Trunk
  */
+
+// t='，'.charCodeAt(0).toString(16)
+// console.log(t); /* ff0c */
+// t='、'.charCodeAt(0).toString(16)
+// console.log(t); /* 3001 */
+// t='。'.charCodeAt(0).toString(16)
+// console.log(t); /* 3002 */
+// t='；'.charCodeAt(0).toString(16)
+// console.log(t); /* ff1b */
+// t='？'.charCodeAt(0).toString(16)
+// console.log(t); /* ff1f */
+
 function first_trunk(text)
 {
 	var sub_str = text;
 	var sub_idx, idx = 0;
-	var min_len = 80;
-	var not_break = 1;
+	var min_len = 50;
+	var max_len = 140;
+	var break_at_space = 0;
 
-	while (idx < min_len && not_break) {
+	while (idx < max_len) {
 		/* try period/comma first */
-		sub_idx = sub_str.search(/,|\.|;|\?/);
+		//console.log('slice (search period): ' + sub_str);
+		sub_idx = sub_str.search(/,|\.|;|\?|\uff0c|\u3001|\u3002|\uff1b|\uff1f/);
+		
+		if (sub_idx == -1 || idx + sub_idx > max_len) {
+			/* would be best if we break at period/comma */
+			if (!break_at_space) {
+				if (idx <= max_len && idx > min_len) {
+					// console.log('slice: lazy break.');
+					break;
+				}
+			}
 
-		if (sub_idx == -1 || idx + sub_idx > min_len) {
-			/* then try space */
+			/* begin break-at-space */
 			sub_idx = sub_str.indexOf(' ');
+			break_at_space = true;
 
-			if (sub_idx == -1 || idx + sub_idx > min_len) {
+			if (sub_idx == -1 || idx + sub_idx > max_len) {
 				if (sub_idx == -1) {
 					/* the next word is the last word, break */
-					not_break = 0;
-					//console.log('slice: add the last words.');
 					idx += sub_str.length;
+					break;
 				} else {
-					/* exceed min len, break */
-					not_break = 0;
-					//console.log('slice: now, I do not want more words.');
+					/* exceed max_len, break */
 					idx += sub_idx + 1;
+					break;
 				}
 			} else {
-				//console.log('slice: increment by space, len = ' + sub_idx);
+				// console.log('slice: increment by space, len = ' + sub_idx);
 				idx += sub_idx + 1;
 			}
 		} else {
-			//console.log('slice: increment by period/comma, len = ' + sub_idx);
+			// console.log('slice: increment by period/comma, len = ' + sub_idx);
 			idx += sub_idx + 1;
 		}
 
-		//console.log('slice: [[' + text.substring(0, idx) + ']] idx = ' + idx + ' / 80');
 		sub_str = sub_str.substr(sub_idx + 1);
 	}
 
+	// console.log('slice: [[' + text.substring(0, idx) + ']]');
+	// console.log('slice: return final idx = ' + idx);
 	return idx;
 }
 
@@ -403,4 +427,11 @@ function text2trunks(text)
 		trunks[i++] = trunk;
 	}
 	return trunks;
+}
+
+function print_trunks(trunks)
+{
+	for (var i = 0; i < trunks.length; i++) {
+		console.log('trunk[' + i + ']: ' + trunks[i]);
+	};
 }

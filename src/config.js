@@ -1,9 +1,9 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sun Dec 24 22:51:59 EST 2017',
+	'modifyDate': 'Mon Dec 25 16:22:02 CST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
-	'shortcut_keys': '',
+	'shortcut_keys': 'Ctrl+Q',
 	'apiList':
 	[
 		{
@@ -272,7 +272,7 @@ function config_default() {
 			'website': 'http://www.voicerss.org/api/',
 			'url': 'http://www.voicerss.org/controls/speech.ashx',
 			'txt_uri_key': 'src',
-			'voice_gap': 1.2,
+			'voice_gap': 0.55,
 			'options': [
 				{
 					'name': 'Language',
