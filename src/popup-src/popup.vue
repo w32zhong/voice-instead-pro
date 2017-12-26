@@ -37,10 +37,10 @@
 </div>
 
 <div class="form-group text-center extra-top">
-	<button class="btn btn-warning tst" v-if="!popup_playing" @click="test()">
-		Test voice
+	<button class="btn btn-warning tst" v-if="popup_playing != 2" @click="test()">
+		{{popup_playing == 0 ? "Test voice" : "Loading ..."}}
 	</button>
-	<button class="btn btn-warning tst" v-if="popup_playing" @click="stop()">
+	<button class="btn btn-warning tst" v-if="popup_playing == 2" @click="stop()">
 		Stop speech
 	</button>
 	<button class="btn btn-default rst" @click="reset()">Reset</button>
@@ -54,7 +54,14 @@
 var bkgd = chrome.extension.getBackgroundPage();
 
 setInterval(function() {
-	bkgd.g_api_settings.popup_playing = (bkgd.g_playing_idx >= 0);
+	if (bkgd.g_playing_idx >= 0) {
+		bkgd.g_api_settings.popup_playing = 2; /* playing */
+	} else if (bkgd.g_loading) {
+		bkgd.g_api_settings.popup_playing = 1; /* loading */
+	} else {
+		bkgd.g_api_settings.popup_playing = 0; /* ready */
+	}
+
 	bkgd.getShortcut();
 }, 600);
 

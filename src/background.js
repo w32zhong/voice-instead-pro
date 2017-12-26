@@ -91,6 +91,7 @@ function getShortcut() {
  * Speech play control functions.
  */
 var g_playing_idx = -1;
+var g_loading = false;
 
 function speech_play() {
 	if (g_playing_idx != -1) {
@@ -298,6 +299,7 @@ function recur_play(audio_arr, trunks, i) {
 			if (i < 0) {
 				/* initial play */
 				sendMsgToTab({"event": "loaded", "args": {}});
+				g_loading = false;
 				recur_play(audio_arr, trunks, 0);
 			}
 		});
@@ -312,6 +314,7 @@ function text2speech(text) {
 	text = text.replace(/>/g, ' ');
 
 	sendMsgToTab({"event": "start", "args": {}});
+	g_loading = true;
 
 	// text = "This principle also applies to proactive members of the Arch community wanting to get involved and contribute to their favorite Linux distribution and their participation benefits not only the community member and their fellow Archers but all users of free and open source software.";
 	trunks = text2trunks(text);
