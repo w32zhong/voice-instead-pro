@@ -1,0 +1,6 @@
+in-app purchases
+google docs
+Off-line speak() API
+Google translate tts API
+self-hosted Amazon Polly
+read entire page in one click

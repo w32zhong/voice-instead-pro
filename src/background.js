@@ -117,6 +117,7 @@ function speech_stop() {
 	a1.stop();
 	a2.stop();
 	g_playing_idx = -1;
+	g_loading = false;
 }
 
 /*
