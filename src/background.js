@@ -168,7 +168,12 @@ function tts_api_url(text)
 	url = apiList[api].url + '?';
 	for (var i = 0; i < apiList[api].options.length; i++) {
 		option = apiList[api].options[i];
-		if (!option.SSML) {
+		if (option.uri_key.charAt(0) == '{') {
+			/* REST API argument */
+			var enc_choice = encodeURIComponent(option.choice);
+			url = url.replace(option.uri_key, enc_choice);
+		} else if (!option.SSML) {
+			/* regular URI argument */
 			url += option.uri_key + '=' + option.choice + '&';
 		}
 	}
@@ -363,6 +368,9 @@ chrome.webRequest.onBeforeSendHeaders.addListener(blockCallbk, filter, opts);
 // console.log(t); /* ff1b */
 // t='？'.charCodeAt(0).toString(16)
 // console.log(t); /* ff1f */
+
+//ttsstt = "This principle also applies to proactive members of the Arch community wanting to get involved and contribute to their favorite Linux distribution and their participation benefits not only the community member and their fellow Archers but all users of free and open source software.";
+//chrome.tts.speak(ttsstt);
 
 function first_trunk(text)
 {

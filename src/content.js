@@ -56,6 +56,7 @@ jQuery.fn.bottom_center = function ()
 
 $(window).scroll(function()
 {
+	$('#jquery_jplayer_status').center();
 	$('#jquery_jplayer_vi_panel').bottom_center();
 });
 

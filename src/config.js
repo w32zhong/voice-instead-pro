@@ -1,11 +1,35 @@
 function config_default() {
 	return {
-	'modifyDate': 'Mon Dec 25 16:22:02 CST 2017',
+	'modifyDate': 'Tue Dec 26 13:30:22 CST 2017',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
 	'apiList':
 	[
+		{
+			'name': 'Amazon Polly',
+			'description': 'Currently English only',
+			'website': 'https://aws.amazon.com/polly/',
+			'url': 'https://support.lsdsoftware.com/read-aloud/speak/en/{voice}',
+			'txt_uri_key': 'q',
+			'voice_gap': 0,
+			'options': [
+				{
+					'name': 'Voice',
+					'uri_key': '{voice}',
+					'choice': 'Amazon US English (Matthew)',
+					'uri_val': [
+						['Ivy', 'Amazon US English (Ivy)'],
+						['Joey', 'Amazon US English (Joey)'],
+						['Justin', 'Amazon US English (Justin)'],
+						['Kendra', 'Amazon US English (Kendra)'],
+						['Kimberly', 'Amazon US English (Kimberly)'],
+						['Salli', 'Amazon US English (Salli)'],
+						['Matthew', 'Amazon US English (Matthew)']
+					]
+				},
+			]
+		},
 		{
 			'name': 'IBM Watson',
 			'description': 'Human-sounding voice',
