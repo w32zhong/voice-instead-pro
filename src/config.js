@@ -1,9 +1,11 @@
 function config_default() {
 	return {
-	'modifyDate': 'Tue Dec 26 13:30:22 CST 2017',
+	'modifyDate': 'Sun Jan 14 15:50:32 EST 2018',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
+	'user_id': 'Unknown',
+	'prompt_license': true,
 	'apiList':
 	[
 		{
@@ -13,19 +15,20 @@ function config_default() {
 			'url': 'https://support.lsdsoftware.com/read-aloud/speak/en/{voice}',
 			'txt_uri_key': 'q',
 			'voice_gap': 0,
+			'disabled': false,
 			'options': [
 				{
 					'name': 'Voice',
 					'uri_key': '{voice}',
-					'choice': 'Amazon US English (Matthew)',
+					'choice': 'Amazon US English (Kendra)',
 					'uri_val': [
 						['Ivy', 'Amazon US English (Ivy)'],
 						['Joey', 'Amazon US English (Joey)'],
 						['Justin', 'Amazon US English (Justin)'],
 						['Kendra', 'Amazon US English (Kendra)'],
 						['Kimberly', 'Amazon US English (Kimberly)'],
-						['Salli', 'Amazon US English (Salli)'],
-						['Matthew', 'Amazon US English (Matthew)']
+						['Salli', 'Amazon US English (Salli)']
+						//['Matthew', 'Amazon US English (Matthew)']
 					]
 				},
 			]
@@ -37,6 +40,7 @@ function config_default() {
 			'url': 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize',
 			'txt_uri_key': 'text',
 			'voice_gap': 0.55,
+			'disabled': false,
 			'options': [
 				{
 					'name': 'Speed',
@@ -114,6 +118,7 @@ function config_default() {
 			'url': 'https://code.responsivevoice.org/getvoice.php',
 			'txt_uri_key': 't',
 			'voice_gap': 0.55,
+			'disabled': false,
 			'options': [
 				{
 					'name': 'Speech speed',
@@ -193,6 +198,7 @@ function config_default() {
 			'url': 'http://tsn.baidu.com/text2audio',
 			'txt_uri_key': 'tex',
 			'voice_gap': 0,
+			'disabled': false,
 			'options': [
 				{
 					'name': '_',
@@ -297,6 +303,7 @@ function config_default() {
 			'url': 'http://www.voicerss.org/controls/speech.ashx',
 			'txt_uri_key': 'src',
 			'voice_gap': 0.55,
+			'disabled': false,
 			'options': [
 				{
 					'name': 'Language',

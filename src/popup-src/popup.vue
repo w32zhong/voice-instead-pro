@@ -11,13 +11,27 @@
 </div>
 
 <h4>Select Text-to-Speech API</h4>
+<p class="prompt_license" v-if="prompt_license">
+	Free version restricts freely choosing APIs
+	(<a target="_blank" v-on:click.prevent="learn_why()">learn why</a>),
+	<span v-if="user_id == 'Unknown'">
+		it assigns two selectable APIs randomly.
+		Please <a target="_blank" v-on:click.prevent="sign()">sign in.</a>
+	</span>
+	<span v-else>
+		you can support VI and unlimit your choice by
+		<a target="_blank" v-on:click.prevent="upgrade()">upgrading.</a>
+	</span>
+</p>
 <div class="form-group">
 	<div class="radio" v-for="(api, idx) in apiList">
 		<label>
-		<input type="radio" :value="idx" v-model="apiChoice" @change="save()">
+		<input type="radio" :value="idx" v-model="apiChoice" @change="save()"
+		:disabled="api.disabled">
 		{{ api.name }}
-		({{ api.description }} <a target="_blank" :href="api.website">
-		<i class="fa fa-external-link" aria-hidden="true"></i>
+		({{ api.description }}
+		<a target="_blank" :href="api.website">
+			<i class="fa fa-external-link" aria-hidden="true"></i>
 		</a>)
 		</label>
 	</div>
@@ -45,9 +59,7 @@
 	</button>
 	<button class="btn btn-default rst" @click="reset()">Reset</button>
 </div>
-
 </form>
-
 </template>
 
 <script>
@@ -63,7 +75,43 @@ setInterval(function() {
 	}
 
 	bkgd.getShortcut();
+	
+	if (bkgd.license_valid)
+		bkgd.g_api_settings.prompt_license = false; /* full version */
+	else
+		bkgd.g_api_settings.prompt_license = true; /* free trial */
 }, 600);
+
+(function disableSomeOptions() {
+	var list = bkgd.g_api_settings.apiList;
+	var l = list.length;
+	var curEpoch = Math.round((new Date()).getTime() / (60 * 1000));
+	var randSeed1 = (curEpoch * curEpoch) % 100;
+	var randSeed2 = (curEpoch * curEpoch) % (l - 1);
+	var idx1 = randSeed1 % l;
+	var idx2 = (idx1 + 1 + randSeed2) % l;
+
+	/* disable all options first if not paid */
+	if (!bkgd.license_valid) {
+		for (var i = 0; i < l; i++)
+			list[i].disabled = true;
+
+		console.log('curEpoch: ' + curEpoch);
+		console.log('enable option ' + idx1 + ', ' + idx2);
+
+		/* set choice to idx1 if it is not yet enabled */
+		var choice = bkgd.g_api_settings.apiChoice;
+		if (choice != idx1 && choice != idx2) {
+			bkgd.g_api_settings.apiChoice = idx1;
+		}
+	} else {
+		console.log('Valid license, I feel thankful.');
+	}
+
+	/* only allow random two options */
+	list[idx1].disabled = false;
+	list[idx2].disabled = false;
+}());
 
 module.exports = {
 	data: function () {
@@ -75,6 +123,9 @@ module.exports = {
 	watch: {
 		'shortcut_keys': function (newVal, oldVal) {
 			console.log('shortcut_keys changed to ' + newVal);
+		},
+		'user_id': function (newVal, oldVal) {
+			console.log('user_id changed to ' + newVal);
 		},
 		'popup_playing': function (newVal, oldVal) {
 			console.log('popup_playing changed to ' + newVal);
@@ -102,6 +153,26 @@ module.exports = {
 			bkgd.g_api_settings = default_cfg;
 			this.stop();
 		},
+		sign: function () {
+			/* debug */
+			// bkgd.g_api_settings.user_id = 'tester';
+
+			chrome.identity.getAuthToken({
+				'interactive': true
+			}, function(token) {
+				bkgd.g_api_settings.user_id = token;
+				if (token != 'Unknown') {
+					bkgd.request_pay_status(token);
+				}
+			});
+		},
+		upgrade: function () {
+			chrome.tabs.create({'url':
+			"https://chrome.google.com/webstore/detail/voice-instead/kphdioekpiaekpmlkhpaicehepbkccbf/"});
+		},
+		learn_why: function () {
+			chrome.tabs.create({'url': chrome.extension.getURL('learn_why.html')});
+		},
 		openShortkeySettings: function () {
 			chrome.tabs.create({url: 'chrome://extensions/configureCommands'});
 		}
@@ -125,5 +196,8 @@ button.rst {
 }
 button.btn {
 	word-spacing: 3px;
+}
+p.prompt_license {
+	font-size: 10px;
 }
 </style>

@@ -1,4 +1,27 @@
 /*
+ * Trail version logic
+ */
+var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
+var license_valid = false;
+
+function request_pay_status(token) {
+	var req = new XMLHttpRequest();
+	req.open('GET', CWS_LICENSE_API_URL + chrome.runtime.id);
+	req.setRequestHeader('Authorization', 'Bearer ' + token);
+	req.onreadystatechange = function() {
+	  if (req.readyState == 4) {
+		var license = JSON.parse(req.responseText);
+		console.log('license: ');
+		console.log(license);
+		if (license.result == false ||
+		    license.accessLevel == "FULL")
+			license_valid = true;
+	  }
+	}
+	req.send();
+}
+
+/*
  * Global API settings
  */
 config_read(function (config) {
@@ -82,8 +105,6 @@ function getShortcut() {
 
 		if (i == commands.length)
 			g_api_settings.shortcut_keys = '';
-		else
-			g_api_settings.shortcut_keys = cmd.shortcut;
 	});
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "Voice Instead",
-  "version": "17.12.26.51",
+  "version": "18.01.14.54",
   "manifest_version": 2,
 
   "description": "Yet another TTS (text to speech) extension, with natural voice.",
@@ -47,6 +47,14 @@
     "loader.gif"
   ],
 
+  "oauth2": {
+    "client_id_debug": "291825512602-3t0mqn3q9d91v9tcqictlr57rngteo6h.apps.googleusercontent.com",
+    "client_id": "291825512602-2i213oprsq2t3vo511nrn3gqv0s39etb.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/chromewebstore.readonly"
+    ]
+  },
+
   "permissions": [
     "tabs",
 	"contextMenus",
@@ -54,6 +62,8 @@
     "<all_urls>",
 	"webRequest",
     "webRequestBlocking",
-    "storage"
+    "storage",
+    "identity",
+	"https://www.googleapis.com/"
   ]
 }
