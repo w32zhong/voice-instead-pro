@@ -39,7 +39,7 @@ function config_default() {
 			'website': 'http://www.ibm.com/watson/developercloud/text-to-speech.html',
 			'url': 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize',
 			'txt_uri_key': 'text',
-			'voice_gap': 0.55,
+			'voice_gap': 0,
 			'disabled': false,
 			'options': [
 				{
@@ -117,7 +117,7 @@ function config_default() {
 			'website': 'https://responsivevoice.com',
 			'url': 'https://code.responsivevoice.org/getvoice.php',
 			'txt_uri_key': 't',
-			'voice_gap': 0.55,
+			'voice_gap': 0,
 			'disabled': false,
 			'options': [
 				{
