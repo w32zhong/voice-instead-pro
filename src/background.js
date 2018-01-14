@@ -1,4 +1,11 @@
 /*
+ * Global API settings
+ */
+config_read(function (config) {
+	g_api_settings = config;
+});
+
+/*
  * Trail version logic
  */
 var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
@@ -16,17 +23,23 @@ function request_pay_status(token) {
 		if (license.result == false ||
 		    license.accessLevel == "FULL")
 			license_valid = true;
+		else
+			license_valid = false;
 	  }
 	}
 	req.send();
 }
 
-/*
- * Global API settings
- */
-config_read(function (config) {
-	g_api_settings = config;
-});
+function authenticate_client() {
+	chrome.identity.getAuthToken({
+		'interactive': true
+	}, function(token) {
+		g_api_settings.user_id = token;
+		if (token != 'Unknown') {
+			request_pay_status(token);
+		}
+	});
+}
 
 /*
  * Message listener and sender API

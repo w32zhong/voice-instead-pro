@@ -157,14 +157,8 @@ module.exports = {
 			/* debug */
 			// bkgd.g_api_settings.user_id = 'tester';
 
-			chrome.identity.getAuthToken({
-				'interactive': true
-			}, function(token) {
-				bkgd.g_api_settings.user_id = token;
-				if (token != 'Unknown') {
-					bkgd.request_pay_status(token);
-				}
-			});
+			/* production */
+			bkgd.authenticate_client();
 		},
 		upgrade: function () {
 			chrome.tabs.create({'url':
