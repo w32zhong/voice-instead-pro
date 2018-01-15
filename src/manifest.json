@@ -1,6 +1,6 @@
 {
   "name": "Voice Instead",
-  "version": "18.01.15.57",
+  "version": "18.01.15.58",
   "manifest_version": 2,
 
   "description": "Yet another TTS (text to speech) extension, with natural voice.",
