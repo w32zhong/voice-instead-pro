@@ -6,14 +6,15 @@ config_read(function (config) {
 });
 
 /*
- * Trail version logic
+ * User license logic
  */
 var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
-var license_valid = false;
+var g_license_valid = false;
 
 function request_pay_status(token) {
-	console.log('current license validity: ');
-	console.log(license_valid);
+	console.log('Current license validity: ');
+	console.log(g_license_valid);
+	console.log('Query license ...');
 
 	var req = new XMLHttpRequest();
 	req.open('GET', CWS_LICENSE_API_URL + chrome.runtime.id);
@@ -25,24 +26,38 @@ function request_pay_status(token) {
 		console.log(license);
 		if (license.result == false ||
 		    license.accessLevel == "FULL")
-			license_valid = true;
+			g_license_valid = true;
 		else
-			license_valid = false;
+			g_license_valid = false;
 	  }
 	}
 	req.send();
 }
 
 function authenticate_client() {
+	console.log('Authenticate client ...');
 	chrome.identity.getAuthToken({
 		'interactive': true
 	}, function(token) {
-		g_api_settings.user_id = token;
-		if (token != 'Unknown') {
+		if (token != undefined) {
+			console.log('user token: ' + token);
+			g_api_settings.user_id = token;
 			request_pay_status(token);
+		} else {
+			console.log('user keeps unknown.');
+			g_api_settings.user_id = 'Unknown';
+			g_license_valid = false;
 		}
 	});
 }
+
+setInterval(function() {
+	console.log('Checking license expiration ...');
+	if (g_license_valid) {
+		authenticate_client();
+	}
+// }, 3 * 1000); /* for debug */
+}, 3600 * 1000); /* for production */
 
 /*
  * Message listener and sender API

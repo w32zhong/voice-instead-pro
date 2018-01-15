@@ -1,18 +1,22 @@
-Tired of reading long text? why not convert text to speech so that you can hear the text on websites? 
+Tired of reading long text? why not convert text to speech so that you can hear the text on websites?
 
 This extension helps you select and speak text in your browser with the following two advantages:
 
-(1) Voice Instead uses TTS(text to speech) engine in human voice quality. 
+(1) Voice Instead uses TTS(text to speech) engine in human voice quality.
 
 (2) Voice Instead enables extremely long text to be read by a single click without a long delay, and the speech is very smooth!
 
-(3) Voice Instead supports 10+ languages. 
+(3) Voice Instead supports 10+ languages.
 
-Usage: 
-Select text on any Chrome page (even PDF file!), right click, and on the content page menu, click `voice instead'! 
-Click Chrome upper-right popup icon to adjust API parameters.
+Usage:
+Select text on any Chrome page (even PDF file!), right click, and select `voice instead'. Now enjoy the human voice quality speech!
+Click Chrome upper-right pop-up icon to adjust API parameters.
 
 Important Changes:
+
+Version 18.01.15.57:
+    * Randomly distribute API availability to reduce heavy traffic on top-rated API.
+    * Change into subscription model.
 
 Version 17.12.26.50:
     * Re-center loading box.

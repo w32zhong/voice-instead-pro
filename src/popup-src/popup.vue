@@ -12,11 +12,10 @@
 
 <h4>Select Text-to-Speech API</h4>
 <p class="prompt_license" v-if="prompt_license">
-	Free version restricts freely choosing APIs
+	Free version restricts freely choosing API
 	(<a target="_blank" v-on:click.prevent="learn_why()">learn why</a>),
 	<span v-if="user_id == 'Unknown'">
-		it assigns two selectable APIs randomly.
-		Please <a target="_blank" v-on:click.prevent="sign()">sign in.</a>
+		please <a target="_blank" v-on:click.prevent="sign()">sign in.</a>
 	</span>
 	<span v-else>
 		you can support VI and unlimit your choice by
@@ -79,7 +78,7 @@ setInterval(function() {
 
 	bkgd.getShortcut();
 	
-	if (bkgd.license_valid)
+	if (bkgd.g_license_valid)
 		bkgd.g_api_settings.prompt_license = false; /* full version */
 	else
 		bkgd.g_api_settings.prompt_license = true; /* free trial */
@@ -94,7 +93,7 @@ setInterval(function() {
 	var idx1 = randSeed1 % l;
 	var idx2 = (idx1 + 1 + randSeed2) % l;
 
-	if (!bkgd.license_valid) {
+	if (!bkgd.g_license_valid) {
 		/* disable all options first if not paid */
 		for (var i = 0; i < l; i++)
 			list[i].disabled = true;
