@@ -65,6 +65,9 @@
 <script>
 var bkgd = chrome.extension.getBackgroundPage();
 
+console.log('Settings:');
+console.log(bkgd.g_api_settings);
+
 setInterval(function() {
 	if (bkgd.g_playing_idx >= 0) {
 		bkgd.g_api_settings.popup_playing = 2; /* playing */
@@ -91,8 +94,8 @@ setInterval(function() {
 	var idx1 = randSeed1 % l;
 	var idx2 = (idx1 + 1 + randSeed2) % l;
 
-	/* disable all options first if not paid */
 	if (!bkgd.license_valid) {
+		/* disable all options first if not paid */
 		for (var i = 0; i < l; i++)
 			list[i].disabled = true;
 
@@ -104,13 +107,16 @@ setInterval(function() {
 		if (choice != idx1 && choice != idx2) {
 			bkgd.g_api_settings.apiChoice = idx1;
 		}
+
+		/* only allow random two options */
+		list[idx1].disabled = false;
+		list[idx2].disabled = false;
 	} else {
+		for (var i = 0; i < l; i++)
+			list[i].disabled = false;
+
 		console.log('Valid license, I feel thankful.');
 	}
-
-	/* only allow random two options */
-	list[idx1].disabled = false;
-	list[idx2].disabled = false;
 }());
 
 module.exports = {
@@ -155,12 +161,14 @@ module.exports = {
 		},
 		sign: function () {
 			/* debug */
-			// bkgd.g_api_settings.user_id = 'tester';
+			//bkgd.g_api_settings.user_id = 'tester';
 
 			/* production */
 			bkgd.authenticate_client();
 		},
 		upgrade: function () {
+			bkgd.authenticate_client();
+
 			chrome.tabs.create({'url':
 			"https://chrome.google.com/webstore/detail/voice-instead/kphdioekpiaekpmlkhpaicehepbkccbf/"});
 		},

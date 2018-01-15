@@ -12,6 +12,9 @@ var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userli
 var license_valid = false;
 
 function request_pay_status(token) {
+	console.log('current license validity: ');
+	console.log(license_valid);
+
 	var req = new XMLHttpRequest();
 	req.open('GET', CWS_LICENSE_API_URL + chrome.runtime.id);
 	req.setRequestHeader('Authorization', 'Bearer ' + token);
