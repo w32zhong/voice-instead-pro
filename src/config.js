@@ -302,7 +302,7 @@ function config_default() {
 			'website': 'http://www.voicerss.org/api/',
 			'url': 'http://www.voicerss.org/controls/speech.ashx',
 			'txt_uri_key': 'src',
-			'voice_gap': 0.55,
+			'voice_gap': 0,
 			'disabled': false,
 			'options': [
 				{
