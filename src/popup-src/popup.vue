@@ -12,7 +12,7 @@
 
 <h4>Select Text-to-Speech API</h4>
 <p class="prompt_license" v-if="prompt_license">
-	Free version restricts freely choosing API
+	Free trial version only allows choosing between two APIs
 	(<a target="_blank" v-on:click.prevent="learn_why()">learn why</a>),
 	<span v-if="user_id == 'Unknown'">
 		please <a target="_blank" v-on:click.prevent="sign()">sign in.</a>
@@ -199,6 +199,7 @@ button.btn {
 	word-spacing: 3px;
 }
 p.prompt_license {
-	font-size: 10px;
+	font-size: 12px;
+	color: grey;
 }
 </style>
