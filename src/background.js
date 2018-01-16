@@ -9,7 +9,8 @@ config_read(function (config) {
  * User license logic
  */
 var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
-var g_license_valid = false;
+//var g_license_valid = true;  /* debug */
+var g_license_valid = false; /* production */
 
 function request_pay_status(token) {
 	console.log('Current license validity: ');
@@ -200,7 +201,7 @@ function tts_api_url(text)
 	var api = g_api_settings.apiChoice;
 	var apiList = g_api_settings.apiList;
 
-	enc_txt = api.test_text;
+	var enc_txt = g_api_settings.test_text;
 	if (text != null) enc_txt = encodeURIComponent(text);
 
 	/* get SSML parameters first */
@@ -319,7 +320,6 @@ function recur_play(audio_arr, trunks, i) {
 				if (left_time <= tts_api_voice_gap()) {
 					/* start to play the next trunk */
 					console.log('Left time: ' + left_time);
-					console.log('Gap: ' + tts_api_voice_gap());
 					recur_play(audio_arr, trunks, i + 1);
 					return true; /* stop this trunk */
 				} else if (cur == 0) {
@@ -369,8 +369,17 @@ function text2speech(text) {
 	sendMsgToTab({"event": "start", "args": {}});
 	g_loading = true;
 
-	// text = "This principle also applies to proactive members of the Arch community wanting to get involved and contribute to their favorite Linux distribution and their participation benefits not only the community member and their fellow Archers but all users of free and open source software.";
-	trunks = text2trunks(text);
+	// text = "this principle also applies to proactive members of the Arch community wanting to get involved and contribute to their favorite Linux distribution and their participation benefits not only the community member and their fellow Archers but all users of free and open source software";
+	// text = text + text + text;
+	var api = g_api_settings.apiChoice;
+	var apiList = g_api_settings.apiList;
+	var min_len = apiList[api].min_len || 50;
+	var max_len = apiList[api].max_len || 160;
+	console.log('text2speech(min_len=' + min_len + ', ' +
+	            'max_len=' + max_len + ', ' + 'gap=' +
+	            tts_api_voice_gap() + ')');
+
+	trunks = text2trunks(text, min_len, max_len);
 	print_trunks(trunks);
 	recur_play([a1, a2], trunks, -1);
 }
@@ -428,12 +437,10 @@ chrome.webRequest.onBeforeSendHeaders.addListener(blockCallbk, filter, opts);
 //ttsstt = "This principle also applies to proactive members of the Arch community wanting to get involved and contribute to their favorite Linux distribution and their participation benefits not only the community member and their fellow Archers but all users of free and open source software.";
 //chrome.tts.speak(ttsstt);
 
-function first_trunk(text)
+function first_trunk(text, min_len, max_len)
 {
 	var sub_str = text;
 	var sub_idx, idx = 0;
-	var min_len = 50;
-	var max_len = 140;
 	var break_at_space = 0;
 
 	while (idx < max_len) {
@@ -481,11 +488,11 @@ function first_trunk(text)
 	return idx;
 }
 
-function text2trunks(text)
+function text2trunks(text, min_len, max_len)
 {
 	var i = 0, trunks = new Array();
 	while (text != 0) {
-		var next = first_trunk(text);
+		var next = first_trunk(text, min_len, max_len);
 		var trunk = text.substr(0, next);
 		text = text.substr(next);
 		trunks[i++] = trunk;

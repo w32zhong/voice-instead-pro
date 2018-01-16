@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Mon Jan 15 18:24:18 EST 2018',
+	'modifyDate': 'Mon Jan 15 19:49:02 EST 2018',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
@@ -16,6 +16,8 @@ function config_default() {
 			'txt_uri_key': 'q',
 			'voice_gap': 0,
 			'disabled': false,
+			'min_len': 50,
+			'max_len': 250,
 			'options': [
 				{
 					'name': 'Voice',
@@ -41,6 +43,8 @@ function config_default() {
 			'txt_uri_key': 'text',
 			'voice_gap': 0,
 			'disabled': false,
+			'min_len': 50,
+			'max_len': 250,
 			'options': [
 				{
 					'name': 'Speed',
@@ -119,6 +123,8 @@ function config_default() {
 			'txt_uri_key': 't',
 			'voice_gap': 0,
 			'disabled': false,
+			'min_len': 50,
+			'max_len': 250,
 			'options': [
 				{
 					'name': 'Speech speed',
@@ -199,6 +205,8 @@ function config_default() {
 			'txt_uri_key': 'tex',
 			'voice_gap': 0,
 			'disabled': false,
+			'min_len': 50,
+			'max_len': 250,
 			'options': [
 				{
 					'name': '_',
@@ -302,8 +310,10 @@ function config_default() {
 			'website': 'http://www.voicerss.org/api/',
 			'url': 'http://www.voicerss.org/controls/speech.ashx',
 			'txt_uri_key': 'src',
-			'voice_gap': 0,
+			'voice_gap': 1.15,
 			'disabled': false,
+			'min_len': 50,
+			'max_len': 90,
 			'options': [
 				{
 					'name': 'Language',
