@@ -15,7 +15,7 @@
 	Free trial version only allows choosing between two APIs
 	(<a target="_blank" v-on:click.prevent="learn_why()">learn why</a>),
 	<span v-if="user_id == 'Unknown'">
-		please <a target="_blank" v-on:click.prevent="sign()">sign in.</a>
+		please <a target="_blank" v-on:click.prevent="sign()">sign in</a>.
 	</span>
 	<span v-else>
 		you can support VI and unlimit your choice by

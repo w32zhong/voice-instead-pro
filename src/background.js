@@ -9,6 +9,11 @@ config_read(function (config) {
  * User license logic
  */
 var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
+
+/* 
+ * When browser restarts, license is reset to invalid
+ * such that we regularly check user's license.
+ */
 //var g_license_valid = true;  /* debug */
 var g_license_valid = false; /* production */
 
@@ -51,14 +56,6 @@ function authenticate_client() {
 		}
 	});
 }
-
-setInterval(function() {
-	console.log('Checking license expiration ...');
-	if (g_license_valid) {
-		authenticate_client();
-	}
-// }, 3 * 1000); /* for debug */
-}, 3600 * 1000); /* for production */
 
 /*
  * Message listener and sender API
