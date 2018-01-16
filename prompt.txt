@@ -16,7 +16,7 @@ Important Changes:
 
 Version 18.01.15.59:
     * Fix jumping read if VoiceRSS API is used.
-    * Better handle extreme long sentence (without punctuation sign).
+    * Better handle extreme long sentence without punctuation sign.
 
 Version 18.01.15.57:
     * Randomly distribute API availability to reduce heavy traffic on top-rated API.
