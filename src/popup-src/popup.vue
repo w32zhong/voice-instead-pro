@@ -77,6 +77,10 @@ setInterval(function() {
 	}
 
 	bkgd.getShortcut();
+
+	/* update options if license validity changes */
+	if (bkgd.g_license_valid == bkgd.g_api_settings.prompt_license)
+		updateOptions();
 	
 	if (bkgd.g_license_valid)
 		bkgd.g_api_settings.prompt_license = false; /* full version */
@@ -84,7 +88,7 @@ setInterval(function() {
 		bkgd.g_api_settings.prompt_license = true; /* free trial */
 }, 600);
 
-(function disableSomeOptions() {
+function updateOptions() {
 	var list = bkgd.g_api_settings.apiList;
 	var l = list.length;
 	var curEpoch = Math.round((new Date()).getTime() / (60 * 1000));
@@ -116,7 +120,7 @@ setInterval(function() {
 
 		console.log('Valid license, I feel thankful.');
 	}
-}());
+};
 
 module.exports = {
 	data: function () {
