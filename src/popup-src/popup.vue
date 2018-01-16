@@ -168,6 +168,7 @@ module.exports = {
 		sign: function () {
 			/* debug */
 			//bkgd.g_api_settings.user_id = 'tester';
+			//bkgd.g_license_valid = true;
 
 			/* production */
 			bkgd.authenticate_client();
