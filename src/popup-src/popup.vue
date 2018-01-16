@@ -114,6 +114,8 @@ function updateOptions() {
 		/* only allow random two options */
 		list[idx1].disabled = false;
 		list[idx2].disabled = false;
+		
+		console.log('User not paid.');
 	} else {
 		for (var i = 0; i < l; i++)
 			list[i].disabled = false;
@@ -127,7 +129,8 @@ module.exports = {
 		return bkgd.g_api_settings;
 	},
 	created: function () {
-		console.log('popup.vue created.')
+		 console.log('popup.vue created.');
+		 updateOptions();
 	},
 	watch: {
 		'shortcut_keys': function (newVal, oldVal) {
