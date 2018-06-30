@@ -70,6 +70,8 @@ console.log(bkgd.g_api_settings);
 setInterval(function() {
 	if (bkgd.g_playing_idx >= 0) {
 		bkgd.g_api_settings.popup_playing = 2; /* playing */
+	} else if (bkgd.g_loaderr) {
+		bkgd.g_api_settings.popup_playing = 0; /* initial state */
 	} else if (bkgd.g_loading) {
 		bkgd.g_api_settings.popup_playing = 1; /* loading */
 	} else {

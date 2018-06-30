@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Mon Jan 15 19:49:02 EST 2018',
+	'modifyDate': 'Sat Jun 30 01:10:33 EDT 2018',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
@@ -68,6 +68,12 @@ function config_default() {
 					'choice': 'Custom',
 					'uri_val': []
 				},
+				{
+					'name': '_',
+					'uri_key': 'accept',
+					'choice': 'audio/mp3',
+					'uri_val': []
+				},
 				// {
 				// 	'name': 'Pitch',
 				// 	'SSML': true,
@@ -99,8 +105,6 @@ function config_default() {
 					'uri_key': 'voice',
 					'choice': 'en-US_AllisonVoice',
 					'uri_val': [
-						['Michael (US)', 'en-US_MichaelVoice'],
-						['Lisa (US)', 'en-US_LisaVoice'],
 						['Kate (EN)', 'en-GB_KateVoice'],
 						['Renee (FR)', 'fr-FR_ReneeVoice'],
 						['Birgit (DE)', 'de-DE_BirgitVoice'],
@@ -110,6 +114,8 @@ function config_default() {
 						['Isabela (PT)', 'pt-BR_IsabelaVoice'],
 						['Enrique (ES)', 'es-ES_EnriqueVoice'],
 						['Sofia (ES)', 'es-US_SofiaVoice'],
+						['Michael (US)', 'en-US_MichaelVoice'],
+						['Lisa (US)', 'en-US_LisaVoice'],
 						['Allison (US)', 'en-US_AllisonVoice']
 					]
 				}

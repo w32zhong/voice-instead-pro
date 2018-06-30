@@ -17,6 +17,10 @@ $(document).ready(function() {
 		case 'ended':
 			remove_ctrl_panel();
 			break;
+		case 'error':
+			remove_loading();
+			remove_ctrl_panel();
+			break;
 		case 'subtitle_update':
 			g_subtitle = msg['args']['subtitle'];
 			$("#g_subtitle").fadeOut(100, function() {

@@ -142,6 +142,7 @@ function getShortcut() {
  */
 var g_playing_idx = -1;
 var g_loading = false;
+var g_loaderr = false;
 
 function speech_play() {
 	if (g_playing_idx != -1) {
@@ -232,7 +233,7 @@ function tts_api_url(text)
 	url += '&' + apiList[api].txt_uri_key + '=';
 
 	/* finally encode apply the TTS text */
-	if (SSML_head_body == '') {
+	if (SSML_head_body == '' || url.indexOf("en-US") == -1 /* ugly but reality */) {
 		url += enc_txt;
 	} else {
 		url += SSML_head_begin + SSML_head_body + SSML_head_end +
@@ -341,6 +342,9 @@ function recur_play(audio_arr, trunks, i) {
 		audio_load(audio_arr[(i + 1) % 2], url, function (c) {
 			if (c != 200) {
 				/* download failed */
+				sendMsgToTab({"event": "error", "args": {}});
+				g_loaderr = true;
+				g_loading = false;
 				console.log('Trunk[' + (i + 1) + '] failed to load.');
 				audio_arr[(i + 1) % 2] = null;
 				return;
@@ -364,6 +368,7 @@ function text2speech(text) {
 	text = text.replace(/>/g, ' ');
 
 	sendMsgToTab({"event": "start", "args": {}});
+	g_loaderr = false;
 	g_loading = true;
 
 	// text = "this principle also applies to proactive members of the Arch community wanting to get involved and contribute to their favorite Linux distribution and their participation benefits not only the community member and their fellow Archers but all users of free and open source software";
