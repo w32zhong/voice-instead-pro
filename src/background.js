@@ -370,6 +370,12 @@ function text2speech(text) {
 	text = text.replace(/</g, ' ');
 	text = text.replace(/>/g, ' ');
 
+	/* ignore references, e.g. "[12]" */
+	text = text.replace(/\[\d+\]/g, '');
+	text = text.replace(/\(/g, ', open parenthesis, ');
+	text = text.replace(/\)/g, ', close parenthesis, ');
+	//console.log(text);
+
 	sendMsgToTab({"event": "start", "args": {}});
 	g_loaderr = false;
 	g_loading = true;
