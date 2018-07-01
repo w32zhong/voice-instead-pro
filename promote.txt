@@ -14,6 +14,9 @@ Click Chrome upper-right pop-up icon to adjust API parameters.
 
 Important Changes:
 
+Version 18.07.01.63:
+	* Offer option to show reading text at the bottom of tab page.
+
 Version 18.06.30.62:
 	* Fix IBM Watson API calling.
 	* Handle voice loading error on UI.

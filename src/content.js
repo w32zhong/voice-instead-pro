@@ -22,10 +22,21 @@ $(document).ready(function() {
 			remove_ctrl_panel();
 			break;
 		case 'subtitle_update':
-			g_subtitle = msg['args']['subtitle'];
+			/* fade-out and fade-in animation */
 			$("#g_subtitle").fadeOut(100, function() {
 				$(this).fadeIn();
 			});
+			/* fall through */
+		case 'subtitle_en':
+			g_subtitle = msg['args']['subtitle'] || g_subtitle;
+			var subtitle_enable = msg['args']['enable'];
+			if (subtitle_enable)
+				$('#g_subtitle').text(g_subtitle);
+			else
+				$('#g_subtitle').text('');
+			/* adjust when subtitle updates */
+			$('#jquery_jplayer_vi_panel').bottom_center();
+			break;
 		default:
 			console.log('Invalid event: ' + e);
 			break;
@@ -33,7 +44,7 @@ $(document).ready(function() {
 	});
 
 	setInterval(function() {
-		$('#g_subtitle').text(g_subtitle);
+		/* adjust when user scrolls the window */
 		$('#jquery_jplayer_vi_panel').bottom_center();
 	}, 300);
 });
@@ -53,8 +64,11 @@ jQuery.fn.bottom_center = function ()
 	this.css("position","fixed");
 	this.css("bottom", "0px");
 	this.css("height", "-" + g_panel_height);
-	this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
-				$(window).scrollLeft()) + "px");
+	const left_pixel = Math.max(
+		0,
+		(($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()
+	)
+	this.css("left", Math.floor(left_pixel) + "px");
 	return this;
 }
 
@@ -86,7 +100,7 @@ function audio_control_dom()
 	// dom += '<br/>Like me? <a href="' + review_url + '" target="_blank">Rate</a> me now!';
 	
 	/* subtitle */
-	// dom += '<br/><span id="g_subtitle"></span>';
+	dom += '<br/><span id="g_subtitle"></span>';
 
 	return dom;
 }
@@ -132,6 +146,7 @@ function prepare_ctrl_panel()
 		"border-radius": "6px",
 		"margin": "0 0 0 0",
 		"height": g_panel_height,
+		"max-width": "800px",
 		"z-index": g_z_index,
 		"opacity": "0.99"
 	}).bottom_center().hide();

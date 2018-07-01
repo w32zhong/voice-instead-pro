@@ -1,17 +1,20 @@
 <template>
-
+<div> <h4>Configurations</h4>
 <form>
-<h4>Configure Shortcut Key</h4>
 <div class="form-group">
-	<p>Current shortcut key for reading selected text is
-		<span><a target="_blank" @click="openShortkeySettings()">
-		{{ shortcut_keys == '' ? 'not set' : shortcut_keys }}</a>.
-		</span>
-	</p>
+		<p><a target="_blank" @click="openShortkeySettings()">
+		{{ shortcut_keys == '' ? 'not set' : shortcut_keys }}</a>
+		is the current shortcut key for reading selected text.
+		</p> 
+
+		<p>
+		<input type="checkbox" class="form-check-input" v-model="subtitle">
+		Check to show reading text at the bottom of tab page.
+		</p>
 </div>
 
-<h4>Select Text-to-Speech API</h4>
-<p class="prompt_license" v-if="prompt_license">
+<label>Select Text-to-Speech API</label>
+<p class="small_size" v-if="prompt_license">
 	Free trial version only allows choosing between two APIs
 	(<a target="_blank" v-on:click.prevent="learn_why()">learn why</a>),
 	<span v-if="user_id == 'Unknown'">
@@ -59,6 +62,7 @@
 	<button class="btn btn-default rst" @click="reset()">Reset</button>
 </div>
 </form>
+</div>
 </template>
 
 <script>
@@ -143,6 +147,14 @@ module.exports = {
 		},
 		'popup_playing': function (newVal, oldVal) {
 			console.log('popup_playing changed to ' + newVal);
+		},
+		'subtitle': function (newVal, oldVal) {
+			console.log('subtitle changed to ' + newVal);
+			bkgd.sendMsgToTab({"event": "subtitle_en", "args": {
+				"enable": newVal
+				}
+			});
+			bkgd.subtitle = newVal;
 		}
 	},
 	methods: {
@@ -208,8 +220,11 @@ button.rst {
 button.btn {
 	word-spacing: 3px;
 }
-p.prompt_license {
+.small_size {
 	font-size: 12px;
 	color: grey;
+}
+input.form-check-input {
+	vertical-align: text-bottom;
 }
 </style>

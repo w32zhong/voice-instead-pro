@@ -1,11 +1,12 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sat Jun 30 01:10:33 EDT 2018',
+	'modifyDate': 'Sun Jul  1 11:57:43 EDT 2018',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
 	'user_id': 'Unknown',
 	'prompt_license': true,
+	'subtitle': false,
 	'apiList':
 	[
 		{

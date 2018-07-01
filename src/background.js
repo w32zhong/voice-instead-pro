@@ -301,7 +301,10 @@ function recur_play(audio_arr, trunks, i) {
 	if (0 <= i && i < trunks.length) {
 		sendMsgToTab({
 			"event": "subtitle_update",
-			"args": {'subtitle': trunks[i]}
+			"args": {
+				'subtitle': trunks[i],
+				'enable': g_api_settings.subtitle
+			}
 		});
 		console.log('playing: ' + trunks[i]);
 		if (audio_arr[i % 2] == null) {
