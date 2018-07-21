@@ -14,8 +14,8 @@ var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userli
  * When browser restarts, license is reset to invalid
  * such that we regularly check user's license.
  */
-//var g_license_valid = true;  /* debug */
-var g_license_valid = false; /* production */
+var g_license_valid = true;  /* debug */
+//var g_license_valid = false; /* production */
 
 function request_pay_status(token) {
 	console.log('Current license validity: ');
@@ -372,8 +372,8 @@ function text2speech(text) {
 
 	/* ignore references, e.g. "[12]" */
 	text = text.replace(/\[\d+\]/g, '');
-	text = text.replace(/\(/g, ', open parenthesis, ');
-	text = text.replace(/\)/g, ', close parenthesis, ');
+	// text = text.replace(/\(/g, ', open parenthesis, ');
+	// text = text.replace(/\)/g, ', close parenthesis, ');
 	//console.log(text);
 
 	sendMsgToTab({"event": "start", "args": {}});

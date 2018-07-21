@@ -14,6 +14,10 @@ Click Chrome upper-right pop-up icon to adjust API parameters.
 
 Important Changes:
 
+Version 18.07.21.65
+	* Remove reading "open/close parenthesis".
+	* Concise UI description
+
 Version 18.07.01.64:
 	* Ignore references formatted in square brackets, e.g. [2].
 

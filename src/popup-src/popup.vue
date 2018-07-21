@@ -2,14 +2,15 @@
 <div> <h4>Configurations</h4>
 <form>
 <div class="form-group">
-		<p><a target="_blank" @click="openShortkeySettings()">
-		{{ shortcut_keys == '' ? 'not set' : shortcut_keys }}</a>
-		is the current shortcut key for reading selected text.
+		<p>
+		Shortcut key to read selected text:
+		<a target="_blank" @click="openShortkeySettings()">
+		{{ shortcut_keys == '' ? 'not set' : shortcut_keys }}</a>.
 		</p> 
 
 		<p>
 		<input type="checkbox" class="form-check-input" v-model="subtitle">
-		Check to show reading text at the bottom of tab page.
+		Show currently reading text.
 		</p>
 </div>
 
