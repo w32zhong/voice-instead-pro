@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Sun Jul  1 11:57:43 EDT 2018',
+	'modifyDate': 'Tue Sep 18 00:18:38 EDT 2018',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
@@ -307,6 +307,59 @@ function config_default() {
 						['7', '7'],
 						['8', '8'],
 						['9', '9']
+					]
+				}
+			]
+		},
+		{
+			'name': 'Google WaveNet',
+			'description': 'Made by Google',
+			'website': 'https://cloud.google.com/text-to-speech/',
+			'url': 'https://cxl-services.appspot.com/proxy?url=https%3A%2F%2Ftexttospeech.googleapis.com%2Fv1beta1%2Ftext%3Asynthesize',
+			'txt_uri_key': ['input', 'text'],
+			'voice_gap': 0,
+			'disabled': false,
+			'min_len': 50,
+			'max_len': 250,
+			'POST': true,
+			'json_template': {
+				"input": {"text": "{{text}}"},
+				"voice": {
+					"languageCode": "{{en-US}}",
+					"name": "en-US-Wavenet-D"
+				},
+				"audioConfig": {
+					"audioEncoding":"LINEAR16",
+					"pitch":"0.00",
+					"speakingRate":"{{1.00}}"
+				}
+			},
+			'options': [
+				{
+					'name': 'Language',
+					'uri_key': ['voice', 'languageCode'],
+					'choice': 'en-US',
+					'uri_val': [
+						["United States", "en-US"],
+						["Great Britain", "en-GB"],
+						["France", "fr-FR"],
+						["Espana", "es-ES"],
+						["Portuguese", "pt-BR"],
+						["Turkey", "tr-TR"],
+						["Japan", "ja-JP"],
+						["Korea", "ko-KR"],
+						["Italia", "it-IT"]
+					]
+				},
+				{
+					'name': 'Speech speed',
+					'uri_key': ['audioConfig', 'speakingRate'],
+					'choice': 1.0,
+					'uri_val': [
+						['Slow', 0.7],
+						['Normal', 1.0],
+						['Fast', 2.0],
+						['Very fast', 3.0]
 					]
 				}
 			]

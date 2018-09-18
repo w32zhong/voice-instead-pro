@@ -194,7 +194,7 @@ function newAudioElement() {
 /*
  * TTS APIs' URL generator
  */
-function tts_api_url(text)
+function tts_api_GET(text)
 {
 	var api = g_api_settings.apiChoice;
 	var apiList = g_api_settings.apiList;
@@ -208,7 +208,7 @@ function tts_api_url(text)
 	SSML_head_end = encodeURIComponent('>');
 	SSML_tail = encodeURIComponent('</voice-transformation>');
 	for (var i = 0; i < apiList[api].options.length; i++) {
-		option = apiList[api].options[i];
+		var option = apiList[api].options[i];
 		if (option.SSML) {
 			SSML_head_body += encodeURIComponent(
 				' ' + option.uri_key +
@@ -220,7 +220,7 @@ function tts_api_url(text)
 	/* apply URL parameters */
 	url = apiList[api].url + '?';
 	for (var i = 0; i < apiList[api].options.length; i++) {
-		option = apiList[api].options[i];
+		var option = apiList[api].options[i];
 		if (option.uri_key.charAt(0) == '{') {
 			/* REST API argument */
 			var enc_choice = encodeURIComponent(option.choice);
@@ -243,6 +243,55 @@ function tts_api_url(text)
 	return url;
 }
 
+function updateObject(object, newValue, path)
+{
+	var stack = path.slice(); /* copy the path */
+	while (stack.length > 1) {
+		object = object[stack.shift()];
+	}
+	object[stack.shift()] = newValue;
+}
+
+function tts_api_POST(text)
+{
+	var api = g_api_settings.apiChoice;
+	var apiList = g_api_settings.apiList;
+	var text2speak = text || g_api_settings.test_text;
+
+	var json = apiList[api].json_template;
+
+	// update the text
+	updateObject(json, text, apiList[api].txt_uri_key);
+
+	// update options
+	for (var i = 0; i < apiList[api].options.length; i++) {
+		var option = apiList[api].options[i];
+		updateObject(json, option.choice, option.uri_key);
+	}
+
+	return json;
+}
+
+function tts_api(text)
+{
+	var api = g_api_settings.apiChoice;
+	var apiList = g_api_settings.apiList;
+
+	if (apiList[api].POST) {
+		return {
+			'method': 'POST',
+			'json': tts_api_POST(text),
+			'url': apiList[api].url
+		}
+	} else {
+		return {
+			'method': 'GET',
+			'json': {},
+			'url': tts_api_GET(text)
+		}
+	}
+}
+
 function tts_api_voice_gap()
 {
 	var api = g_api_settings.apiChoice;
@@ -252,24 +301,71 @@ function tts_api_voice_gap()
 	return gap;
 }
 
+function b64toBlob(b64Data, contentType, sliceSize) {
+	contentType = contentType || '';
+	sliceSize = sliceSize || 512;
+
+	var byteCharacters = atob(b64Data);
+	var byteArrays = [];
+
+	for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+		var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+		var byteNumbers = new Array(slice.length);
+		for (var i = 0; i < slice.length; i++) {
+			byteNumbers[i] = slice.charCodeAt(i);
+		}
+
+		var byteArray = new Uint8Array(byteNumbers);
+
+		byteArrays.push(byteArray);
+	}
+
+	var blob = new Blob(byteArrays, {type: contentType});
+	return blob;
+}
+
 /*
  * audio high-level methods
  */
-function audio_load(audio, url, callbk)
+function audio_load(audio, api, callbk)
 {
+	var json = api['json'];
+	var method = api['method'];
+	var url  = api['url'];
 	var xhr = new XMLHttpRequest();
 
-	xhr.addEventListener('load', function (blob) {
-		// console.log('status: ' + xhr.status);
-		if (xhr.status == 200) {
-			audio.src = window.URL.createObjectURL(xhr.response);
-		}
-		callbk(xhr.status);
-	});
-
-	xhr.open('GET', url);
-	xhr.responseType = 'blob';
-	xhr.send(null);
+	if (method == 'POST') {
+		xhr.addEventListener('load', function (ret) {
+			// console.log('status: ' + xhr.status);
+			if (xhr.status == 200) {
+				// console.log(xhr.response);
+				var b64Data = xhr.response['audioContent'];
+				var contentType = 'audio/mpeg';
+				var blob = b64toBlob(b64Data, contentType);
+				audio.src = window.URL.createObjectURL(blob);
+			}
+			callbk(xhr.status);
+		});
+		xhr.open('POST', url);
+		xhr.responseType = 'json';
+		var json_str = JSON.stringify(json);
+		xhr.send(json_str);
+	} else if (method == 'GET') {
+		xhr.addEventListener('load', function (blob) {
+			// console.log('status: ' + xhr.status);
+			if (xhr.status == 200) {
+				// console.log(xhr.response);
+				audio.src = window.URL.createObjectURL(xhr.response);
+			}
+			callbk(xhr.status);
+		});
+		xhr.open('GET', url);
+		xhr.responseType = 'blob';
+		xhr.send(null);
+	} else {
+		console.log('ERR: unknown audio_load() method.');
+	}
 }
 
 function audio_play(audio, onTimeUpdate, onEnd)
@@ -341,8 +437,8 @@ function recur_play(audio_arr, trunks, i) {
 
 	/* at the same time prepare and load the next trunk */
 	if (i + 1 < trunks.length) {
-		url = tts_api_url(trunks[i + 1]);
-		audio_load(audio_arr[(i + 1) % 2], url, function (c) {
+		api = tts_api(trunks[i + 1]);
+		audio_load(audio_arr[(i + 1) % 2], api, function (c) {
 			if (c != 200) {
 				/* download failed */
 				sendMsgToTab({"event": "error", "args": {}});
