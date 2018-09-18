@@ -14,6 +14,9 @@ Click Chrome upper-right pop-up icon to adjust API parameters.
 
 Important Changes:
 
+Version 18.09.18.66
+	* Added Google WaveNet API option.
+
 Version 18.07.21.65
 	* Remove reading "open/close parenthesis".
 	* Concise UI description
