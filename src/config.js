@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Tue Sep 18 00:18:38 EDT 2018',
+	'modifyDate': 'Tue Sep 18 00:39:05 EDT 2018',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
@@ -326,7 +326,7 @@ function config_default() {
 				"input": {"text": "{{text}}"},
 				"voice": {
 					"languageCode": "{{en-US}}",
-					"name": "en-US-Wavenet-D"
+					"name": "{{en-US}}-Wavenet-A"
 				},
 				"audioConfig": {
 					"audioEncoding":"LINEAR16",
@@ -352,14 +352,26 @@ function config_default() {
 					]
 				},
 				{
+					'name': 'Voice',
+					'uri_key': ['voice', 'name'],
+					'choice': 'Wavenet-A',
+					'uri_val': [
+						["Wavenet A", "Wavenet-A"],
+						["Wavenet B", "Wavenet-B"],
+						["Standard A", "Standard-A"],
+						["Standard B", "Standard-B"],
+						["Standard C", "Standard-C"]
+					]
+				},
+				{
 					'name': 'Speech speed',
 					'uri_key': ['audioConfig', 'speakingRate'],
 					'choice': 1.0,
 					'uri_val': [
-						['Slow', 0.7],
+						['Slow', 0.8],
 						['Normal', 1.0],
-						['Fast', 2.0],
-						['Very fast', 3.0]
+						['Fast', 1.5],
+						['Very fast', 2.0]
 					]
 				}
 			]

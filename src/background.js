@@ -266,7 +266,12 @@ function tts_api_POST(text)
 	// update options
 	for (var i = 0; i < apiList[api].options.length; i++) {
 		var option = apiList[api].options[i];
-		updateObject(json, option.choice, option.uri_key);
+		if (apiList[api].name == 'Google WaveNet' && option.name == 'Voice') {
+			var prefix = apiList[api].options[0].choice;
+			updateObject(json, prefix + '-' + option.choice, option.uri_key);
+		} else {
+			updateObject(json, option.choice, option.uri_key);
+		}
 	}
 
 	return json;
