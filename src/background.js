@@ -14,8 +14,8 @@ var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userli
  * When browser restarts, license is reset to invalid
  * such that we regularly check user's license.
  */
-var g_license_valid = true;  /* debug */
-//var g_license_valid = false; /* production */
+// var g_license_valid = true;  /* debug */
+var g_license_valid = false; /* production */
 
 function request_pay_status(token) {
 	console.log('Current license validity: ');
@@ -219,6 +219,19 @@ function tts_api_GET(text)
 
 	/* apply URL parameters */
 	url = apiList[api].url + '?';
+
+	/* apply the TTS text */
+	url += apiList[api].txt_uri_key + '=';
+	if (SSML_head_body == '' || url.indexOf("en-US") == -1 /* ugly but reality */) {
+		url += enc_txt;
+	} else {
+		url += SSML_head_begin + SSML_head_body + SSML_head_end +
+		       enc_txt + SSML_tail;
+	}
+
+	/* apply other parameters */
+	if (apiList[api].options.length > 0) url += '&';
+
 	for (var i = 0; i < apiList[api].options.length; i++) {
 		var option = apiList[api].options[i];
 		if (option.uri_key.charAt(0) == '{') {
@@ -227,18 +240,15 @@ function tts_api_GET(text)
 			url = url.replace(option.uri_key, enc_choice);
 		} else if (!option.SSML) {
 			/* regular URI argument */
-			url += option.uri_key + '=' + option.choice + '&';
+			url += option.uri_key + '=' + option.choice;
 		}
-	}
-	url += '&' + apiList[api].txt_uri_key + '=';
 
-	/* finally encode apply the TTS text */
-	if (SSML_head_body == '' || url.indexOf("en-US") == -1 /* ugly but reality */) {
-		url += enc_txt;
-	} else {
-		url += SSML_head_begin + SSML_head_body + SSML_head_end +
-		       enc_txt + SSML_tail;
+		if (apiList[api].options.length != i + 1)
+			url += '&';
 	}
+
+	console.log(url);
+
 
 	return url;
 }
