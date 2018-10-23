@@ -1,6 +1,6 @@
 function config_default() {
 	return {
-	'modifyDate': 'Mon Oct 22 18:30:38 EDT 2018',
+	'modifyDate': 'Tue Oct 23 00:01:07 EDT 2018',
 	'apiChoice': 0,
 	'popup_playing': false,
 	'shortcut_keys': 'Ctrl+Q',
@@ -122,108 +122,104 @@ function config_default() {
 				}
 			]
 		},
-//		{
-//			'name': 'Responsive Voice',
-//			'description': 'Multi-language',
-//			'website': 'https://responsivevoice.com',
-//			'url': 'https://code.responsivevoice.org/getvoice.php',
-//			'txt_uri_key': 't',
-//			'voice_gap': 0,
-//			'disabled': false,
-//			'min_len': 50,
-//			'max_len': 250,
-//			'options': [
-//				{
-//					'name': 'Language',
-//					'uri_key': 'tl',
-//					'choice': 'en_US',
-//					'uri_val': [
-//						['English United States', 'en_US'],
-//						['English United Kingdom', 'en_GB'],
-//						['English India', 'en_IN'],
-//						['German Germany', 'de_DE'],
-//						['Spanish Spain', 'es_ES'],
-//						['Spanish Mexico', 'es_MX'],
-//						['Spanish United States', 'es_US'],
-//						['French Belgium', 'fr_BE'],
-//						['French France', 'fr_FR'],
-//						['Indonesian Indonesia', 'in_ID'],
-//						['Italian Italy', 'it_IT'],
-//						['Hindi India', 'hi'],
-//						['Japanese Japan', 'ja_JP'],
-//						['Korean South Korea', 'ko_KR'],
-//						['Dutch Netherlands', 'nl_NL'],
-//						['Polish Poland', 'pl_PL'],
-//						['Portuguese Brazil', 'pt_BR'],
-//						['Portuguese Portugal', 'pt_PT'],
-//						['Russian Russia', 'ru_RU'],
-//						['Thai Thailand', 'th_TH'],
-//						['Turkish Turkey', 'tr_TR'],
-//						['Chinese China', 'zh_CN'],
-//						['Chinese Hong Kong', 'zh_HK'],
-//						['Chinese Taiwan', 'zh_TW']
-//					]
-//				},
-//				{
-//					'name': '_',
-//					'uri_key': 'sv',
-//					'choice': 'g1',
-//					'uri_val': []
-//				},
-//				{
-//					'name': '_',
-//					'uri_key': 'vn',
-//					'choice': '',
-//					'uri_val': []
-//				},
-//				{
-//					'name': 'Pitch',
-//					'uri_key': 'pitch',
-//					'choice': '0.5',
-//					'uri_val': [
-//						['0.1', '0.1'],
-//						['0.3', '0.3'],
-//						['0.5', '0.5'],
-//						['0.7', '0.7'],
-//						['0.9', '0.9']
-//					]
-//				},
-//				{
-//					'name': 'Speech speed',
-//					'uri_key': 'rate',
-//					'choice': '0.5',
-//					'uri_val': [
-//						['Very slow', '0.2'],
-//						['Slow', '0.3'],
-//						['Normal', '0.5'],
-//						['Fast', '0.7'],
-//						['Very Fast', '0.8'],
-//						['Bolt', '1.0']
-//					]
-//				},
-//				{
-//					'name': 'Volume',
-//					'uri_key': 'vol',
-//					'choice': '1.0',
-//					'uri_val': [
-//						['1.0', '1'],
-//						['0.8', '0.8'],
-//						['0.6', '0.6'],
-//						['0.4', '0.4'],
-//						['0.2', '0.2']
-//					]
-//				},
-//				{
-//					'name': 'Gender',
-//					'uri_key': 'gender',
-//					'choice': 'male',
-//					'uri_val': [
-//						['Male', 'male'],
-//						['Female', 'female']
-//					]
-//				}
-//			]
-//		},
+		{
+			'name': 'Responsive Voice',
+			'description': 'Multi-language',
+			'website': 'https://responsivevoice.com',
+			'url': 'https://code.responsivevoice.org/getvoice.php',
+			'txt_uri_key': 't',
+			'voice_gap': 0,
+			'disabled': false,
+			'min_len': 50,
+			'max_len': 250,
+			'options': [
+				{
+					'name': 'Language',
+					'uri_key': 'tl',
+					'choice': 'en_US',
+					'uri_val': [
+						['English United States', 'en_US'],
+						['English United Kingdom', 'en_GB'],
+						['English India', 'en_IN'],
+						['German Germany', 'de_DE'],
+						['Spanish Spain', 'es_ES'],
+						['Spanish Mexico', 'es_MX'],
+						['Spanish United States', 'es_US'],
+						['French Belgium', 'fr_BE'],
+						['French France', 'fr_FR'],
+						['Indonesian Indonesia', 'in_ID'],
+						['Italian Italy', 'it_IT'],
+						['Japanese Japan', 'ja_JP'],
+						['Korean South Korea', 'ko_KR'],
+						['Polish Poland', 'pl_PL'],
+						['Portuguese Brazil', 'pt_BR'],
+						['Portuguese Portugal', 'pt_PT'],
+						['Russian Russia', 'ru_RU'],
+						['Thai Thailand', 'th_TH'],
+						['Chinese China', 'zh_CN'],
+						['Chinese Hong Kong', 'zh_HK']
+					]
+				},
+				{
+					'name': '_',
+					'uri_key': 'sv',
+					'choice': 'g1',
+					'uri_val': []
+				},
+				{
+					'name': '_',
+					'uri_key': 'vn',
+					'choice': '',
+					'uri_val': []
+				},
+				{
+					'name': 'Pitch',
+					'uri_key': 'pitch',
+					'choice': '0.5',
+					'uri_val': [
+						['0.1', '0.1'],
+						['0.3', '0.3'],
+						['0.5', '0.5'],
+						['0.7', '0.7'],
+						['0.9', '0.9']
+					]
+				},
+				{
+					'name': 'Speech speed',
+					'uri_key': 'rate',
+					'choice': '0.5',
+					'uri_val': [
+						['Very slow', '0.2'],
+						['Slow', '0.3'],
+						['Normal', '0.5'],
+						['Fast', '0.7'],
+						['Very Fast', '0.8'],
+						['Bolt', '1.0']
+					]
+				},
+				{
+					'name': 'Volume',
+					'uri_key': 'vol',
+					'choice': '1',
+					'uri_val': [
+						['1.0', '1'],
+						['0.8', '0.8'],
+						['0.6', '0.6'],
+						['0.4', '0.4'],
+						['0.2', '0.2']
+					]
+				},
+				{
+					'name': 'Gender',
+					'uri_key': 'gender',
+					'choice': 'male',
+					'uri_val': [
+						['Male', 'male'],
+						['Female', 'female']
+					]
+				}
+			]
+		},
 		{
 			'name': 'Baidu Deep Voice',
 			'website': 'http://yuyin.baidu.com/#try',
